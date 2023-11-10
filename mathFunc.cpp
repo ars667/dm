@@ -55,6 +55,7 @@ std::pair<int, int> ADD_QQ_Q(std::pair<int, int> fraction1, std::pair<int, int> 
 
 std::pair<int, int> MUL_QQ_Q(std::pair<int, int> fraction1, std::pair <int, int> fraction2) {
     std::pair <int, int> new_fraction = std::make_pair(fraction1.first*fraction2.first, fraction1.second * fraction2.second);
+    RED_Q_Q(new_fraction);
     return new_fraction;
 }
 

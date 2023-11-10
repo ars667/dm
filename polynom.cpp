@@ -8,6 +8,7 @@ using namespace std;
 
 bool Polynomial::poly_empty() {
     Polynomial poly = (*this);
+
     return poly.coef.size() == 1 && poly.coef[0].first == 0;
 }
 
@@ -57,7 +58,7 @@ Polynomial Polynomial::DIV_PP_P(Polynomial poly_n) {
     Polynomial poly_q({ {0,1} });
     Polynomial poly_m = *this;
     Polynomial poly_r = poly_m;
-    while (poly_m.degree() >= poly_n.degree()) {
+    while (!poly_m.poly_empty() && poly_m.degree() >= poly_n.degree()) {
         Polynomial poly_x({ { 1,1 }, { 0,1 } });//P = x
         Polynomial poly_zero({ { 1,1 } });//P = 1
         pair<int, int> coeff = DIV_QQ_Q(poly_m.leadingCoefficientPair(), poly_n.leadingCoefficientPair());
@@ -147,15 +148,7 @@ Polynomial Polynomial::operator-(const Polynomial& other){
     return poly;
 }
 
-// Умножение многочлена на рациональное число(только справо)
-Polynomial Polynomial::operator*(int scalar) const {
-    Polynomial result = *this;
-    for (auto& term : result.coef) {
-        term.first *= scalar;
-        RED_Q_Q(term);
-    }
-    return result;
-}
+
 
 Polynomial Polynomial::operator*(std::pair<int, int> fraction) const {
     if (fraction.second == 0) {

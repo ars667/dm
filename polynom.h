@@ -24,9 +24,7 @@ public:
     // Вычитание двух многочленов
     Polynomial operator-(const Polynomial& other);
 
-    // Умножение многочлена на рациональное число(только справо)
-    Polynomial operator*(int scalar) const;
-
+    //умножение на дробь справа
     Polynomial operator*(std::pair<int, int> fraction) const;
 
     // Умножение многочлена на x^k Особенности: возвращает новый полином, не меняя текущий
@@ -41,6 +39,8 @@ public:
     size_t degree() const;
 
     void nod_nok();
+
+    //сокращение коэффициентов
     void simplify();
 
     // Упростить многочлен: объединить одинаковые степени и удалить нулевые коэффициент
@@ -55,10 +55,12 @@ public:
     //производная многочлена
     Polynomial DER_P_P();
 
+    //проверка многочлена на тождественный 0
     bool poly_empty();
+
+    //убирает незначащие нулевые коэффициенты при старших степенях
     void norm_polynom();
 
+    //возвращает остаток при делении многочлена
     Polynomial ost_div_pp(Polynomial poly);
-
-    //Polynomial nod_polynom(Polynomial poly);
 };
