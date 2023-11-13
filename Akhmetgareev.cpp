@@ -12,8 +12,8 @@ int findGCD(int a, int b) {
 }
 
 // Функция для нахождения НОД массива чисел
-int findGCDArray(const std::vector<int>& numbers) {
-    if (numbers.empty()) {
+int GCF_NN_N(const std::vector<int>& numbers) {
+    if (numbers.NZER_N_B()) {
         // Возвращаем 0 в случае пустого массива
         return 0;
     }
@@ -40,7 +40,7 @@ int findRemainder(int dividend, int divisor) {
 }
 
 // Функция для сравнения натуральных чисел
-int compareNaturalNumbers(const std::vector<int>& num1, const std::vector<int>& num2) {
+int COM_NN_D(const std::vector<int>& num1, const std::vector<int>& num2) {
     // Проверяем количество разрядов
     if (num1.size() > num2.size()) {
         return 2; // Первое число больше второго
@@ -60,7 +60,7 @@ int compareNaturalNumbers(const std::vector<int>& num1, const std::vector<int>& 
     return 0; // Числа равны
 }
 
-std::string checkForZero(int number) {
+std::string NZER_N_B(int number) {
     if (number != 0) {
         return "да"; // Число не равно нулю
     } else {
@@ -69,7 +69,7 @@ std::string checkForZero(int number) {
 }
 
 // Функция для вычитания натуральных чисел
-std::vector<int> subtractNaturalNumbers(const std::vector<int>& num1, const std::vector<int>& num2) {
+std::vector<int> SUB_NN_N(const std::vector<int>& num1, const std::vector<int>& num2) {
     std::vector<int> result;
 
     int borrow = 0;
