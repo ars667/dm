@@ -5,6 +5,7 @@
 
 class Natural{
 
+    int n; //номер старшей позиции
     std::vector<int> digit = {};
     public:
 
@@ -16,5 +17,6 @@ class Natural{
         Natural operator*(const Natural &digit); //Умножение натуральных чисел
                                                  //MUL_NN_N
 
+        void print() const;
 };
 #endif
