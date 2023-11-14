@@ -2,6 +2,7 @@
 #define Natural_h
 
 #include <vector>
+#include <string>
 
 class Natural{
 
@@ -9,7 +10,7 @@ class Natural{
     std::vector<int> digit = {};
     public:
 
-        Natural(unsigned long long number);
+        Natural(std::string s);
 
         Natural operator+(const Natural &other); //Сложение натуральных чисел
                                                  //ADD_NN_N
@@ -26,5 +27,7 @@ class Natural{
         void print() const;
 
         Natural add1();
+
+        std::string getDigit();
 };
 #endif

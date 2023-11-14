@@ -2,28 +2,32 @@
 #include <iostream>
 #include <cmath>
 
-Natural::Natural(unsigned long long number)
+Natural::Natural(std::string s)
 {
-    while (number > 0)
+    int len = s.length();
+    for (int i = len - 1; i >= 0; i--)
     {
-        digit.push_back(number % 10);
-        number /= 10;
+        char c = s[i];
+        if (c >= '0' && c <= '9')
+        {
+            this->digit.push_back(c - '0');
+        }
     }
-    n = digit.size();
+    this->n = digit.size();
 }
 
 Natural Natural::operator+(const Natural &other)
 {
-    Natural result(0);
+    Natural result("");
     int carry = 0;
 
     for (int i = 0; i < std::max(n, other.n) || carry; ++i)
     {
         if (i == result.n)
-            result.digit.push_back(0);
+            //result.digit.push_back(0);
         result.n++;
         int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0);
-        result.digit[i] = sum % 10;
+        result.digit.push_back(sum % 10);
         carry = sum / 10;
     }
 
@@ -33,12 +37,12 @@ Natural Natural::operator+(const Natural &other)
 
 Natural Natural::operator*(const Natural &other)
 {
-    Natural result(0);
+    Natural result("");
 
     for (int i = 0; i < n; ++i)
     {
         int carry = 0;
-        Natural temp(0);
+        Natural temp("");
 
         for (int j = 0; j < other.n || carry; ++j)
         {
@@ -121,6 +125,16 @@ void Natural::print() const
 
 Natural Natural::add1()
 {
-    Natural num(1);
+    Natural num("1");
     return *this + num;
 }
+
+std::string Natural::getDigit()
+{
+    std::string s;
+    for (int i = 0; i < this->n; i++){
+        char c = static_cast<char>(i);
+        s += c;
+    }
+}
+
