@@ -17,6 +17,12 @@ class Natural{
         Natural operator*(const Natural &digit); //Умножение натуральных чисел
                                                  //MUL_NN_N
 
+        int operator>(const Natural &other);
+
+        int isZero();
+
         void print() const;
+
+        Natural add1();
 };
 #endif

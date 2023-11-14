@@ -2,22 +2,26 @@
 #include <iostream>
 #include <cmath>
 
-Natural::Natural(unsigned long long number) {
-    while (number > 0) {
+Natural::Natural(unsigned long long number)
+{
+    while (number > 0)
+    {
         digit.push_back(number % 10);
         number /= 10;
     }
     n = digit.size();
 }
 
-Natural Natural::operator+(const Natural &other) {
-    Natural result(0); 
-    int carry = 0; 
+Natural Natural::operator+(const Natural &other)
+{
+    Natural result(0);
+    int carry = 0;
 
-    for (int i = 0; i < std::max(n, other.n) || carry; ++i) {
+    for (int i = 0; i < std::max(n, other.n) || carry; ++i)
+    {
         if (i == result.n)
-            result.digit.push_back(0); 
-            result.n++;
+            result.digit.push_back(0);
+        result.n++;
         int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0);
         result.digit[i] = sum % 10;
         carry = sum / 10;
@@ -27,17 +31,20 @@ Natural Natural::operator+(const Natural &other) {
     return result;
 }
 
-Natural Natural::operator*(const Natural &other) {
+Natural Natural::operator*(const Natural &other)
+{
     Natural result(0);
 
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i)
+    {
         int carry = 0;
         Natural temp(0);
 
-        for (int j = 0; j < other.n || carry; ++j) {
+        for (int j = 0; j < other.n || carry; ++j)
+        {
             if (j == temp.n)
                 temp.digit.push_back(0);
-                temp.n++;
+            temp.n++;
 
             int product = carry + digit[i] * (j < other.n ? other.digit[j] : 0);
             temp.digit[j] = product % 10;
@@ -46,20 +53,64 @@ Natural Natural::operator*(const Natural &other) {
 
         for (int j = 0; j < temp.n; ++j)
             temp.digit[j] *= pow(10, i);
-
         result = result + temp;
     }
 
     return result;
 }
 
-void Natural::print() const {
-    if (digit.empty()) {
+int Natural::operator>(const Natural &other)
+{
+    for (int i = std::max(this->n, other.n); i > 0; i--)
+    {
+        if (this->digit[i] > other.digit[i])
+        {
+            return 2;
+        }
+        else if (this->digit[i] > other.digit[i])
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int Natural::isZero()
+{
+    if (digit.empty())
+    {
+        return 1;
+    }
+    if ((this->n) == 1 && (this->digit[0]) == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+void Natural::print() const
+{
+    if (digit.empty())
+    {
         std::cout << "0";
-    } else {
-        for (int i = n - 1; i >= 0; --i) {
+    }
+    else
+    {
+        for (int i = n - 1; i >= 0; --i)
+        {
             std::cout << digit[i];
         }
     }
     std::cout << std::endl;
 }
+
+Natural Natural::add1()
+{
+    Natural num(1);
+    return *this + num;
+}
+
+
