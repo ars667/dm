@@ -91,6 +91,18 @@ int Natural::isZero()
     }
 }
 
+int Natural::isOne()
+{
+    if ((this->n) == 1 && (this->digit[0]) == 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 void Natural::print() const
 {
     if (digit.empty())
@@ -112,5 +124,3 @@ Natural Natural::add1()
     Natural num(1);
     return *this + num;
 }
-
-

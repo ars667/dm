@@ -21,6 +21,8 @@ class Natural{
 
         int isZero();
 
+        int isOne();
+
         void print() const;
 
         Natural add1();
