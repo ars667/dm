@@ -1,28 +1,29 @@
 #pragma once
 #include "Natural.h"
+#include <string>
 
 class Integer 
 {
-	bool sign; // 1 это '-', 0 '+'
+	bool sign; // 1 пїЅпїЅпїЅ '-', 0 '+'
 	Natural value;
 public:
 	Integer();
-	Integer(string strInt);
+	Integer(std::string strInt);
 	Integer(bool sign, Natural value);
 
-	long long int getValue() const; //перевести часть value в int, если меньше 10 знаков
-	int getDigit(unsigned int rank) const; //узнать цифру по разряду
-	int getRank() const; //узнать колличество разрядов
+	long long int getValue() const; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ value пїЅ int, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 10 пїЅпїЅпїЅпїЅпїЅпїЅ
+	int getDigit(unsigned int rank) const; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	int getRank() const; //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	bool getSign() const;
 
-	Natural ABS_Z_N(const Integer&); //Абсолютная величина числа, результат - натуральное
-	unsigned int POZ_Z_D(const Integer&); //Определение положительности числа (2 - положительное, 0 — равное нулю, 1 - отрицательное)
-	Integer MUL_ZM_Z(const Integer&);// * на -1
-	Integer TRANS_Z_N(const Natural&);//Преобразование натурального в целое
-	Natural TRANS_N_Z(const Integer&);//Преобразование целого неотрицательного в натуральное
-	Integer ADD_ZZ_Z(const Integer&, const Integer&);//Сложение целых чисел
-	Integer SUB_ZZ_Z(const Integer&, const Integer&);//Вычитание целых чисел
-	Integer MUL_ZZ_Z(const Integer&, const Integer&);//Умножение целых чисел
-	Integer DIV_ZZ_Z(const Integer&, const Integer&);//Частное от деления целого на целое (делитель отличен от нуля)
-	Integer MOD_ZZ_Z(const Integer&, const Integer&);//Остаток от деления целого на целое(делитель отличен от нуля)
+	Natural ABS_Z_N(const Integer&); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	unsigned int POZ_Z_D(const Integer&); //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (2 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 0 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, 1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+	Integer MUL_ZM_Z(const Integer&);// * пїЅпїЅ -1
+	Integer TRANS_Z_N(const Natural&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
+	Natural TRANS_N_Z(const Integer&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	Integer ADD_ZZ_Z(const Integer&, const Integer&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	Integer SUB_ZZ_Z(const Integer&, const Integer&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	Integer MUL_ZZ_Z(const Integer&, const Integer&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	Integer DIV_ZZ_Z(const Integer&, const Integer&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ)
+	Integer MOD_ZZ_Z(const Integer&, const Integer&);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ)
 };
