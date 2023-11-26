@@ -24,14 +24,51 @@ Natural Natural::operator+(const Natural &other)
     for (int i = 0; i < std::max(n, other.n) || carry; ++i)
     {
         if (i == result.n)
-            //result.digit.push_back(0);
-        result.n++;
+            // result.digit.push_back(0);
+            result.n++;
         int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0);
         result.digit.push_back(sum % 10);
         carry = sum / 10;
     }
 
     result.n = result.digit.size();
+    return result;
+}
+
+Natural Natural::operator-(const Natural &other)
+{
+    Natural result("");
+    int borrow = 0;
+
+    for (int i = 0; i < std::max(n, other.n) || borrow; ++i)
+    {
+        int sub = (i < n ? digit[i] : 0) - borrow - (i < other.n ? other.digit[i] : 0);
+
+        if (sub < 0)
+        {
+            sub += 10;
+            borrow = 1;
+        }
+        else
+        {
+            borrow = 0;
+        }
+
+        if (i == result.n)
+        {
+            // result.digit.push_back(0);
+            result.n++;
+        }
+
+        result.digit.push_back(sub);
+    }
+
+    while (result.n > 1 && result.digit.back() == 0)
+    {
+        result.digit.pop_back();
+        result.n--;
+    }
+
     return result;
 }
 
@@ -65,18 +102,29 @@ Natural Natural::operator*(const Natural &other)
 
 int Natural::operator>(const Natural &other)
 {
-    for (int i = std::max(this->n, other.n); i > 0; i--)
+    if (this->n > other.n)
     {
-        if (this->digit[i] > other.digit[i])
-        {
-            return 2;
-        }
-        else if (this->digit[i] > other.digit[i])
-        {
-            return 1;
-        }
+        return 2;
     }
-    return 0;
+    else if (this->n < other.n)
+    {
+        return 1;
+    }
+    else
+    {
+        for (int i = std::max(this->n, other.n); i > 0; i--)
+        {
+            if (this->digit[i] > other.digit[i])
+            {
+                return 2;
+            }
+            else if (this->digit[i] > other.digit[i])
+            {
+                return 1;
+            }
+        }
+        return 0;
+    }
 }
 
 int Natural::isZero()
@@ -132,9 +180,9 @@ Natural Natural::add1()
 std::string Natural::getDigit()
 {
     std::string s;
-    for (int i = 0; i < this->n; i++){
+    for (int i = 0; i < this->n; i++)
+    {
         char c = static_cast<char>(i);
         s += c;
     }
 }
-

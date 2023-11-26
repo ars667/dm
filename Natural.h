@@ -15,6 +15,8 @@ class Natural{
         Natural operator+(const Natural &other); //Сложение натуральных чисел
                                                  //ADD_NN_N
 
+        Natural operator-(const Natural &other);
+
         Natural operator*(const Natural &digit); //Умножение натуральных чисел
                                                  //MUL_NN_N
 
