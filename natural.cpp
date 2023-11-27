@@ -36,7 +36,11 @@ Natural Natural::operator+(const Natural &other)
 }
 
 Natural Natural::operator-(const Natural &other)
-{
+{   
+    if ((*this > other == 1) || (*this > other == 0)){
+        return Natural("0");
+    }
+
     Natural result("");
     int borrow = 0;
 
@@ -112,13 +116,13 @@ int Natural::operator>(const Natural &other)
     }
     else
     {
-        for (int i = std::max(this->n, other.n); i > 0; i--)
+        for (int i = this->n; i >= 0; i--)
         {
             if (this->digit[i] > other.digit[i])
             {
                 return 2;
             }
-            else if (this->digit[i] > other.digit[i])
+            else if (this->digit[i] < other.digit[i])
             {
                 return 1;
             }
