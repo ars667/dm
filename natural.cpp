@@ -36,8 +36,9 @@ Natural Natural::operator+(const Natural &other)
 }
 
 Natural Natural::operator-(const Natural &other)
-{   
-    if ((*this > other == 1) || (*this > other == 0)){
+{
+    if ((*this > other == 1) || (*this > other == 0))
+    {
         return Natural("0");
     }
 
@@ -104,6 +105,42 @@ Natural Natural::operator*(const Natural &other)
     return result;
 }
 
+Natural Natural::operator/(const Natural &other)
+{
+    if (other.isZero())
+    {
+        throw std::invalid_argument("Division by zero");
+    }
+    Natural result("0"); // Инициализируем результат нулём
+
+    Natural currentDividend = *this; // Создаем копию делимого
+
+    while (currentDividend > other == 2 || currentDividend > other == 0)
+    {
+        currentDividend = currentDividend - other;
+        result = result + Natural("1");
+    }
+
+    return result;
+}
+
+// Остаток от деления натуральных чисел
+Natural Natural::operator%(const Natural &other)
+{
+    if (other.isZero())
+    {
+        throw std::invalid_argument("Division by zero");
+    }
+    Natural currentDividend = *this; // Создаем копию делимого
+
+    while (currentDividend > other == 2 || currentDividend > other == 0)
+    {
+        currentDividend = currentDividend - other;
+    }
+
+    return currentDividend;
+}
+
 int Natural::operator>(const Natural &other)
 {
     if (this->n > other.n)
@@ -131,9 +168,9 @@ int Natural::operator>(const Natural &other)
     }
 }
 
-int Natural::isZero()
+int Natural::isZero() const
 {
-    if (digit.empty())
+    if (this->digit.empty())
     {
         return 1;
     }
@@ -189,4 +226,5 @@ std::string Natural::getDigit()
         char c = static_cast<char>(i);
         s += c;
     }
+    return s;
 }

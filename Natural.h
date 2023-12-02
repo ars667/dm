@@ -19,10 +19,13 @@ class Natural{
 
         Natural operator*(const Natural &digit); //Умножение натуральных чисел
                                                  //MUL_NN_N
+        Natural operator/(const Natural &digit);
+
+        Natural operator%(const Natural &digit);
 
         int operator>(const Natural &other);
 
-        int isZero();
+        int isZero() const;
 
         int isOne();
 
