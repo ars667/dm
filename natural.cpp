@@ -131,6 +131,10 @@ Natural Natural::operator%(const Natural &other)
     {
         throw std::invalid_argument("Division by zero");
     }
+    if (*this > other == 1)
+    {
+        return *this;
+    }
     Natural currentDividend = *this; // Создаем копию делимого
 
     while (currentDividend > other == 2 || currentDividend > other == 0)
@@ -153,7 +157,7 @@ int Natural::operator>(const Natural &other)
     }
     else
     {
-        for (int i = this->n; i >= 0; i--)
+        for (int i = this->n - 1; i >= 0; i--)
         {
             if (this->digit[i] > other.digit[i])
             {
@@ -166,6 +170,29 @@ int Natural::operator>(const Natural &other)
         }
         return 0;
     }
+}
+
+Natural Natural::gcd(Natural &other)
+{
+    Natural a = *this;
+    Natural b = other;
+    while (!b.isZero())
+    {
+        Natural temp_b = b;
+        b = a % b;
+        a = temp_b;
+    }
+
+    return a;
+}
+
+Natural Natural::lcm(Natural &other)
+{
+    Natural gcd_result = this->gcd(other);
+
+    Natural lcm_result = (*this * other) / gcd_result;
+
+    return lcm_result;
 }
 
 int Natural::isZero() const
@@ -210,6 +237,22 @@ void Natural::print() const
         }
     }
     std::cout << std::endl;
+}
+
+void Natural::check()
+{
+    std::cout << this->n << std::endl;
+    if (digit.empty())
+    {
+        std::cout << "EMP";
+    }
+    else
+    {
+        for (int i = n - 1; i >= 0; --i)
+        {
+            std::cout << digit[i] << std::endl;
+        }
+    }
 }
 
 Natural Natural::add1()

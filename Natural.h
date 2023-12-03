@@ -3,36 +3,44 @@
 
 #include <vector>
 #include <string>
+#include <algorithm>
 
-class Natural{
+class Natural
+{
 
-    int n; //номер старшей позиции
+    int n; // номер старшей позиции
     std::vector<int> digit = {};
-    public:
 
-        Natural(std::string s);
+public:
+    Natural(std::string s);
 
-        Natural operator+(const Natural &other); //Сложение натуральных чисел
-                                                 //ADD_NN_N
+    Natural operator+(const Natural &other); // Сложение натуральных чисел
+                                             // ADD_NN_N
 
-        Natural operator-(const Natural &other);
+    Natural operator-(const Natural &other);
 
-        Natural operator*(const Natural &digit); //Умножение натуральных чисел
-                                                 //MUL_NN_N
-        Natural operator/(const Natural &digit);
+    Natural operator*(const Natural &digit); // Умножение натуральных чисел
+                                             // MUL_NN_N
+    Natural operator/(const Natural &digit);
 
-        Natural operator%(const Natural &digit);
+    Natural operator%(const Natural &digit);
 
-        int operator>(const Natural &other);
+    Natural gcd( Natural &other) ;
 
-        int isZero() const;
+    Natural lcm( Natural &other) ;
 
-        int isOne();
+    int operator>(const Natural &other);
 
-        void print() const;
+    int isZero() const;
 
-        Natural add1();
+    int isOne();
 
-        std::string getDigit();
+    void print() const;
+
+    void check();
+
+    Natural add1();
+
+    std::string getDigit();
 };
 #endif
