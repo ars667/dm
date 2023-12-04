@@ -2,6 +2,10 @@
 #include <iostream>
 #include <cmath>
 
+Natural::Natural()
+{
+}
+
 Natural::Natural(std::string s)
 {
     int len = s.length();
@@ -16,7 +20,7 @@ Natural::Natural(std::string s)
     this->n = digit.size();
 }
 
-Natural Natural::operator+(const Natural &other)
+Natural Natural::operator+(const Natural& other)
 {
     Natural result("");
     int carry = 0;
@@ -35,7 +39,7 @@ Natural Natural::operator+(const Natural &other)
     return result;
 }
 
-Natural Natural::operator-(const Natural &other)
+Natural Natural::operator-(const Natural& other)
 {
     if ((*this > other == 1) || (*this > other == 0))
     {
@@ -77,7 +81,7 @@ Natural Natural::operator-(const Natural &other)
     return result;
 }
 
-Natural Natural::operator*(const Natural &other)
+Natural Natural::operator*(const Natural& other)
 {
     Natural result("");
 
@@ -105,7 +109,7 @@ Natural Natural::operator*(const Natural &other)
     return result;
 }
 
-Natural Natural::operator/(const Natural &other)
+Natural Natural::operator/(const Natural& other)
 {
     if (other.isZero())
     {
@@ -125,7 +129,7 @@ Natural Natural::operator/(const Natural &other)
 }
 
 // Остаток от деления натуральных чисел
-Natural Natural::operator%(const Natural &other)
+Natural Natural::operator%(const Natural& other)
 {
     if (other.isZero())
     {
@@ -145,7 +149,7 @@ Natural Natural::operator%(const Natural &other)
     return currentDividend;
 }
 
-int Natural::operator>(const Natural &other)
+int Natural::operator>(const Natural& other)
 {
     if (this->n > other.n)
     {
@@ -172,7 +176,7 @@ int Natural::operator>(const Natural &other)
     }
 }
 
-Natural Natural::gcd(Natural &other)
+Natural Natural::gcd(Natural& other)
 {
     Natural a = *this;
     Natural b = other;
@@ -186,7 +190,7 @@ Natural Natural::gcd(Natural &other)
     return a;
 }
 
-Natural Natural::lcm(Natural &other)
+Natural Natural::lcm(Natural& other)
 {
     Natural gcd_result = this->gcd(other);
 
@@ -253,6 +257,16 @@ void Natural::check()
             std::cout << digit[i] << std::endl;
         }
     }
+}
+
+std::string Natural::str_() const
+{
+    std::string ans;
+    for (int i = n - 1; i >= 0; --i)
+    {
+        ans.append(std::to_string(digit[i]));
+    }
+    return ans;
 }
 
 Natural Natural::add1()
