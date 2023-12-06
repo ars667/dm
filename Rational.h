@@ -12,7 +12,10 @@ public:
     //Конструктор, знаменатель не 0.
     Rational();
     Rational(Integer, Natural);
-    Rational(bool _sign, string str_nom, string str_denom);
+    Rational(std::string str);
+
+    void print() const;
+    std::string str_() const;
 
     Rational RED_Q_Q(const Rational&);//Сокращение дроби || Ссылка на ABS_Z_N,  GCF_NN_N  и  DIV_ZZ_Z
     bool INT_Q_B(const Rational&);//Проверка сокращенного дробного на целое, если рациональное число является целым, то «да», иначе «нет»
