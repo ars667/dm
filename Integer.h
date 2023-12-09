@@ -4,7 +4,7 @@
 
 class Integer
 {
-	bool sign; // 1 СЌС‚Рѕ '-', 0 '+'
+	bool sign; // 1 это '-', 0 '+'
 	Natural value;
 public:
 	Integer();
@@ -15,15 +15,20 @@ public:
 	void print() const;
 	std::string str_() const;
 	std::string getValue() const;
+	
+	//НОД
+	Integer GCF_NN_N(const Integer& a, const Integer& b);
+	//НОК
+	Integer LCM_NN_N(const Integer&);
 
-	Natural ABS_Z_N(); //РђР±СЃРѕР»СЋС‚РЅР°СЏ РІРµР»РёС‡РёРЅР° С‡РёСЃР»Р°, СЂРµР·СѓР»СЊС‚Р°С‚ - РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ
-	unsigned int POZ_Z_D(); //РћРїСЂРµРґРµР»РµРЅРёРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕСЃС‚Рё С‡РёСЃР»Р° (2 - РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ, 0 вЂ” СЂР°РІРЅРѕРµ РЅСѓР»СЋ, 1 - РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ)
-	Integer MUL_ZM_Z();// * РЅР° -1
-	Integer TRANS_N_Z(const Natural& natural);//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРіРѕ РІ С†РµР»РѕРµ
-	Natural TRANS_Z_N(const Integer&);//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С†РµР»РѕРіРѕ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРіРѕ РІ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ
-	Integer ADD_ZZ_Z(const Integer&);//РЎР»РѕР¶РµРЅРёРµ С†РµР»С‹С… С‡РёСЃРµР»
-	Integer SUB_ZZ_Z(const Integer&);//Р’С‹С‡РёС‚Р°РЅРёРµ С†РµР»С‹С… С‡РёСЃРµР»
-	Integer MUL_ZZ_Z(const Integer&);//РЈРјРЅРѕР¶РµРЅРёРµ С†РµР»С‹С… С‡РёСЃРµР»
-	Integer DIV_ZZ_Z(const Integer&);//Р§Р°СЃС‚РЅРѕРµ РѕС‚ РґРµР»РµРЅРёСЏ С†РµР»РѕРіРѕ РЅР° С†РµР»РѕРµ (РґРµР»РёС‚РµР»СЊ РѕС‚Р»РёС‡РµРЅ РѕС‚ РЅСѓР»СЏ)
-	Integer MOD_ZZ_Z(const Integer&);//РћСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ С†РµР»РѕРіРѕ РЅР° С†РµР»РѕРµ(РґРµР»РёС‚РµР»СЊ РѕС‚Р»РёС‡РµРЅ РѕС‚ РЅСѓР»СЏ)
+	Natural ABS_Z_N(); //Абсолютная величина числа, результат - натуральное
+	unsigned int POZ_Z_D(); //Определение положительности числа (2 - положительное, 0 — равное нулю, 1 - отрицательное)
+	Integer MUL_ZM_Z();// * на -1
+	Integer TRANS_N_Z(const Natural& natural);//Преобразование натурального в целое
+	Natural TRANS_Z_N(const Integer& a);//Преобразование целого неотрицательного в натуральное
+	Integer ADD_ZZ_Z(const Integer& a);//Сложение целых чисел
+	Integer SUB_ZZ_Z(const Integer& a);//Вычитание целых чисел
+	Integer MUL_ZZ_Z(const Integer& a);//Умножение целых чисел
+	Integer DIV_ZZ_Z(const Integer& a);//Частное от деления целого на целое (делитель отличен от нуля)
+	Integer MOD_ZZ_Z(const Integer& a);//Остаток от деления целого на целое(делитель отличен от нуля)
 };

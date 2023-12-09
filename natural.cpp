@@ -1,4 +1,4 @@
-#include "natural.h"
+#include "Natural.h"
 #include <iostream>
 #include <cmath>
 
@@ -115,9 +115,9 @@ Natural Natural::operator/(const Natural& other)
     {
         throw std::invalid_argument("Division by zero");
     }
-    Natural result("0"); // Ð˜Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð¸Ñ€ÑƒÐµÐ¼ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð½ÑƒÐ»Ñ‘Ð¼
+    Natural result("0"); // »íèöèàëèçèðóåì ðåçóëüòàò íóëªì
 
-    Natural currentDividend = *this; // Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ ÐºÐ¾Ð¿Ð¸ÑŽ Ð´ÐµÐ»Ð¸Ð¼Ð¾Ð³Ð¾
+    Natural currentDividend = *this; // —îçäàåì êîïèþ äåëèìîãî
 
     while (currentDividend > other == 2 || currentDividend > other == 0)
     {
@@ -128,7 +128,7 @@ Natural Natural::operator/(const Natural& other)
     return result;
 }
 
-// ÐžÑÑ‚Ð°Ñ‚Ð¾Ðº Ð¾Ñ‚ Ð´ÐµÐ»ÐµÐ½Ð¸Ñ Ð½Ð°Ñ‚ÑƒÑ€Ð°Ð»ÑŒÐ½Ñ‹Ñ… Ñ‡Ð¸ÑÐµÐ»
+// ñòàòîê îò äåëåíè¤ íàòóðàëüíûõ ÷èñåë
 Natural Natural::operator%(const Natural& other)
 {
     if (other.isZero())
@@ -139,7 +139,7 @@ Natural Natural::operator%(const Natural& other)
     {
         return *this;
     }
-    Natural currentDividend = *this; // Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ ÐºÐ¾Ð¿Ð¸ÑŽ Ð´ÐµÐ»Ð¸Ð¼Ð¾Ð³Ð¾
+    Natural currentDividend = *this; // —îçäàåì êîïèþ äåëèìîãî
 
     while (currentDividend > other == 2 || currentDividend > other == 0)
     {
@@ -176,7 +176,7 @@ int Natural::operator>(const Natural& other)
     }
 }
 
-Natural Natural::gcd(Natural& other)
+Natural Natural::gcd(const Natural& other)
 {
     Natural a = *this;
     Natural b = other;
@@ -190,7 +190,7 @@ Natural Natural::gcd(Natural& other)
     return a;
 }
 
-Natural Natural::lcm(Natural& other)
+Natural Natural::lcm(const Natural& other)
 {
     Natural gcd_result = this->gcd(other);
 

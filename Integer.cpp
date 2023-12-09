@@ -59,13 +59,13 @@ std::string Integer::getValue() const
 }
 
 
-// РђР±СЃРѕР»СЋС‚РЅР°СЏ РІРµР»РёС‡РёРЅР° С‡РёСЃР»Р°, СЂРµР·СѓР»СЊС‚Р°С‚ - РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ
-//РґРµР»Р°Р»Р° Р‘Р°СЂР°РµРІР° Р•.Рќ.
+// Абсолютная величина числа, результат - натуральное
+//делала Бараева Е.Н.
 Natural Integer::ABS_Z_N() {
 	return value;
 }
 
-unsigned int Integer::POZ_Z_D() // РћРїСЂРµРґРµР»РµРЅРёРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕСЃС‚Рё С‡РёСЃР»Р° (2 - РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ, 0 вЂ” СЂР°РІРЅРѕРµ РЅСѓР»СЋ, 1 - РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ)
+unsigned int Integer::POZ_Z_D() // Определение положительности числа (2 - положительное, 0 — равное нулю, 1 - отрицательное)
 {
 	Natural val = value;
 	if ((val).isZero())
@@ -76,8 +76,8 @@ unsigned int Integer::POZ_Z_D() // РћРїСЂРµРґРµР»РµРЅРёРµ РїРѕР»РѕР¶РёС‚РµР»СЊРЅ
 		return 1;
 }
 
-//// РґРµР»Р°Р»Р° РђРЅРёС‰РµРЅРєРѕ Рђ.Р.
-Integer Integer::MUL_ZM_Z() { // СѓРјРЅРѕР¶РµРЅРёРµ С†РµР»РѕРіРѕ РЅР° -1
+//// делала Анищенко А.И.
+Integer Integer::MUL_ZM_Z() { // умножение целого на -1
 	Integer ans;
 	ans.value = value;
 	if (sign == true)
@@ -87,23 +87,23 @@ Integer Integer::MUL_ZM_Z() { // СѓРјРЅРѕР¶РµРЅРёРµ С†РµР»РѕРіРѕ РЅР° -1
 	return ans;
 }
 
-//// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРіРѕ РІ С†РµР»РѕРµ
-////РґРµР»Р°Р»Р° Р‘Р°СЂР°РµРІР° Р•.Рќ.
+//// Преобразование натурального в целое
+////делала Бараева Е.Н.
 Integer Integer::TRANS_N_Z(const Natural& natural) {
 	return Integer(false, natural);
 }
 
-// РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С†РµР»РѕРіРѕ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРіРѕ РІ РЅР°С‚СѓСЂР°Р»СЊРЅРѕРµ
-//РґРµР»Р°Р»Р° Р‘Р°СЂР°РµРІР° Р•.Рќ.
+// Преобразование целого неотрицательного в натуральное
+//делала Бараева Е.Н.
 Natural Integer::TRANS_Z_N(const Integer& integer) {
 	if (sign == true)
-		throw "Negative number"; // РїСЂРѕРІРµСЂРєР° РЅР° РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕСЃС‚СЊ, РІС‹Р±СЂР°СЃС‹РІР°РЅРёРµ РёСЃРєР»СЋС‡РµРЅРёСЏ
-	// return ABS_Z_N(integer); РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ ABS_Z_N, С‚.Рє. РєРѕРґ РґР°Р»РµРµ РїРѕРІС‚РѕСЂСЏРµС‚ СЌС‚Сѓ С„СѓРЅРєС†РёСЋ
+		throw "Negative number"; // проверка на неотрицательность, выбрасывание исключения
+	// return ABS_Z_N(integer); можно использовать ABS_Z_N, т.к. код далее повторяет эту функцию
 	return Natural(integer.value);
 }
 
-Integer Integer::ADD_ZZ_Z(const Integer& intB) //РЎР»РѕР¶РµРЅРёРµ С†РµР»С‹С… С‡РёСЃРµР», ABS_Z_N - РІРµСЂРЅСѓС‚СЊ РЅР°С‚, COM_NN_D - СЃСЂР°РІРЅРёС‚СЊ 2 РЅР°С‚, ADD_NN_N SUB_NN_N MUL_ZM_Z - СЃРјРµРЅР° Р·РЅР°РєР°
-{	//POZ_Z_D - РѕРїСЂ РїРѕР»РѕР¶РёС‚(РјРµС€Р°РµС‚ РґР»СЏ СЃР»СѓС‡Р°РµРІ СЃ 0, С‚Р°Рє С‡С‚Рѕ РЅРµ РёСЃРїРѕР»СЊР·СѓСЋ.)
+Integer Integer::ADD_ZZ_Z(const Integer& intB) //Сложение целых чисел, ABS_Z_N - вернуть нат, COM_NN_D - сравнить 2 нат, ADD_NN_N SUB_NN_N MUL_ZM_Z - смена знака
+{	//POZ_Z_D - опр положит(мешает для случаев с 0, так что не использую.)
 	Natural sum;
 	if (sign == false && intB.sign == false)
 	{
@@ -120,7 +120,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //РЎР»РѕР¶РµРЅРёРµ С†РµР»С‹С… С‡Р
 		int bigger = value > intB.value;
 		if (bigger == 0)
 			return Integer(false, (value - intB.value));
-		else if (bigger == 2)//A > B РїРѕ РјРѕРґ
+		else if (bigger == 2)//A > B по мод
 		{
 			sum = (value - intB.value);
 			if (sign == true)
@@ -130,7 +130,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //РЎР»РѕР¶РµРЅРёРµ С†РµР»С‹С… С‡Р
 			else
 				return Integer(false, sum);
 		}
-		else if (bigger == 1)//A < B РїРѕ РјРѕРґ
+		else if (bigger == 1)//A < B по мод
 		{
 			Natural bVal = intB.value;
 			sum = (bVal - value);
@@ -147,7 +147,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //РЎР»РѕР¶РµРЅРёРµ С†РµР»С‹С… С‡Р
 		return Integer();
 }
 
-Integer Integer::SUB_ZZ_Z(const Integer& intB) //Р’С‹С‡РёС‚Р°РЅРёРµ С†РµР»С‹С… С‡РёСЃРµР», POZ_Z_D ABS_Z_N COM_NN_D ADD_NN_N SUB_NN_N MUL_ZM_Z
+Integer Integer::SUB_ZZ_Z(const Integer& intB) //Вычитание целых чисел, POZ_Z_D ABS_Z_N COM_NN_D ADD_NN_N SUB_NN_N MUL_ZM_Z
 {
 	Integer tempB = intB;
 	Integer intRevB = tempB.MUL_ZM_Z();
@@ -155,29 +155,31 @@ Integer Integer::SUB_ZZ_Z(const Integer& intB) //Р’С‹С‡РёС‚Р°РЅРёРµ С†РµР»С‹С… С
 	return result;
 }
 
-Integer Integer::MUL_ZZ_Z(const Integer& intB) // РЈРјРЅРѕР¶РµРЅРёРµ С†РµР»С‹С… С‡РёСЃРµР», POZ_Z_D ABS_Z_N MUL_NN_N MUL_ZM_Z
+Integer Integer::MUL_ZZ_Z(const Integer& intB) // Умножение целых чисел, POZ_Z_D ABS_Z_N MUL_NN_N MUL_ZM_Z
 {
 	bool mulSign = false;
 	Integer tempB = intB;
 	if ((POZ_Z_D() != tempB.POZ_Z_D()) && (POZ_Z_D() != 0 && tempB.POZ_Z_D() != 0))
 		mulSign = true;
 	else if ((POZ_Z_D() == 0 || tempB.POZ_Z_D() == 0))
-		mulSign = false;
+	{
+		return Integer("0");
+	}
 	Natural mult = value * tempB.value;
 	return Integer(mulSign, mult);
 }
 
-// С„СѓРЅРєС†РёРё РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ С†РµР»С‹РјРё С‡РёСЃР»Р°РјРё
-//РґРµР»Р°Р»Р° РђРЅРёС‰РµРЅРєРѕ Рђ.Р.
-Integer Integer::DIV_ZZ_Z(const Integer& b) { // РґРµР»РµРЅРёРµ С†РµР»РѕРіРѕ РЅР° С†РµР»РѕРµ
+// функции для работы с целыми числами
+//делала Анищенко А.И.
+Integer Integer::DIV_ZZ_Z(const Integer& b) { // деление целого на целое
 	Integer result;
 	result.sign = MUL_ZZ_Z(b).sign;
 	result.value = value / b.value;
 	return result;
 }
 
- //РґРµР»Р°Р»Р° РђРЅРёС‰РµРЅРєРѕ Рђ.Р.
-Integer Integer::MOD_ZZ_Z(const Integer& b) { // РѕСЃС‚Р°С‚РѕРє РѕС‚ РґРµР»РµРЅРёСЏ С†РµР»РѕРіРѕ РЅР° С†РµР»РѕРµ
+//делала Анищенко А.И.
+Integer Integer::MOD_ZZ_Z(const Integer& b) { // остаток от деления целого на целое
 	Integer div = DIV_ZZ_Z(b);
 	return Integer(div.sign, value % b.value);
 }

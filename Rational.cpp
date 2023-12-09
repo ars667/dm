@@ -18,7 +18,7 @@ Rational::Rational(Integer nominator, Natural denominator)
 
 Rational::Rational(std::string rat)
 {
-	if (rat.find("/") > 1000 ) // РїСЂРё РЅРµРЅР°С…РѕР¶РґРµРЅРёРё РІС‹РґР°С‘С‚ РјРЅРѕРіРѕ Р·РЅР°РєРѕРІ
+	if (rat.find("/") > 1000) // при ненахождении выдаёт много знаков
 	{
 		denominator = Natural("1");
 		nominator = Integer(rat);
@@ -38,7 +38,7 @@ void Rational::print() const
 	ans.append(nominator.str_());
 	Natural denom = denominator;
 	if (denom.isOne() == 1)
-		std::cout<<ans;
+		std::cout << ans;
 	else
 	{
 		ans.append("/");
@@ -59,8 +59,8 @@ std::string Rational::str_() const
 	return ans;
 }
 
-Rational Rational::RED_Q_Q(const Rational& ConstRati)//РЎРѕРєСЂР°С‰РµРЅРёРµ РґСЂРѕР±Рё || РЎСЃС‹Р»РєР° РЅР° ABS_Z_N,  GCF_NN_N  Рё  DIV_ZZ_Z
-{		// ABS_Z_N - РјРѕРґСѓР»СЊ С‡РёСЃР»Р°, GCF_NN_N - РЅРѕРґ РЅР°С‚СѓСЂР°Р»СЊРЅС‹С… С‡РёСЃРµР», 
+Rational Rational::RED_Q_Q(const Rational& ConstRati)//Сокращение дроби || Ссылка на ABS_Z_N,  GCF_NN_N  и  DIV_ZZ_Z
+{		// ABS_Z_N - модуль числа, GCF_NN_N - нод натуральных чисел, 
 	Rational Rati = ConstRati;
 	int sign = Rati.nominator.getSign();
 	Integer unsignedNominator = Integer(Rati.nominator.getValue());
@@ -72,9 +72,9 @@ Rational Rational::RED_Q_Q(const Rational& ConstRati)//РЎРѕРєСЂР°С‰РµРЅРёРµ РґСЂ
 	temp.append(nominat.getValue());
 	Rational ans(temp, denominat);
 	return ans;
-}		// DIV_ZZ_Z - С‡Р°СЃС‚РЅРѕРµ РѕС‚ РґРµР»РµРЅРёСЏ С†РµР»РѕРіРѕ РЅР° С†РµР»РѕРµ
+}		// DIV_ZZ_Z - частное от деления целого на целое
 
-bool Rational::INT_Q_B(const Rational& ConstRati)//РџСЂРѕРІРµСЂРєР° СЃРѕРєСЂР°С‰РµРЅРЅРѕРіРѕ РґСЂРѕР±РЅРѕРіРѕ РЅР° С†РµР»РѕРµ, РµСЃР»Рё СЂР°С†РёРѕРЅР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј, С‚Рѕ В«РґР°В», РёРЅР°С‡Рµ В«РЅРµС‚В»
+bool Rational::INT_Q_B(const Rational& ConstRati)//Проверка сокращенного дробного на целое, если рациональное число является целым, то «да», иначе «нет»
 {
 	Integer nom;
 	int sign = ConstRati.nominator.getSign();
@@ -92,13 +92,13 @@ bool Rational::INT_Q_B(const Rational& ConstRati)//РџСЂРѕРІРµСЂРєР° СЃРѕРєСЂР°С‰
 		return false;
 }
 
-Rational Rational::TRANS_Z_Q(const  Integer& nom)//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С†РµР»РѕРіРѕ РІ РґСЂРѕР±РЅРѕРµ
+Rational Rational::TRANS_Z_Q(const  Integer& nom)//Преобразование целого в дробное
 {
 	Rational ans = Rational(nom, Natural("1"));
 	return ans;
 }
 
-Integer Rational::TRANS_Q_Z(const Rational& ConstRati)//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ СЃРѕРєСЂР°С‰РµРЅРЅРѕРіРѕ РґСЂРѕР±РЅРѕРіРѕ РІ С†РµР»РѕРµ (РµСЃР»Рё Р·РЅР°РјРµРЅР°С‚РµР»СЊ СЂР°РІРµРЅ 1)
+Integer Rational::TRANS_Q_Z(const Rational& ConstRati)//Преобразование сокращенного дробного в целое (если знаменатель равен 1)
 {
 	Rational rati = ConstRati;
 	if ((rati.denominator.isOne() == 1))
@@ -109,15 +109,14 @@ Integer Rational::TRANS_Q_Z(const Rational& ConstRati)//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅ
 	return  Integer(false, Natural("0"));
 }
 
-Rational Rational::ADD_QQ_Q(const Rational& constRatA, const Rational& constRatB)//РЎР»РѕР¶РµРЅРёРµ РґСЂРѕР±РµР№ || РЎСЃС‹Р»РєР° РЅР° LCM_NN_N(lcm) Рё MUL_ZZ_Z
-{							// LCM_NN_N - РќРћРљ РЅР°С‚СѓСЂР°Р»СЊРЅС‹С… С‡РёСЃРµР», MUL_ZZ_Z - СѓРјРЅРѕР¶РµРЅРёРµ С†РµР»С‹С… С‡РёСЃРµР», add_zz_z - СЃР»РѕР¶РµРЅРёРµ
-	Rational ratA = constRatA;
+Rational Rational::ADD_QQ_Q(const Rational& constRatB)//Сложение дробей || Ссылка на LCM_NN_N(lcm) и MUL_ZZ_Z
+{							// LCM_NN_N - НОК натуральных чисел, MUL_ZZ_Z - умножение целых чисел, add_zz_z - сложение
 	Rational ratB = constRatB;
-	Natural totDenom = (ratA.denominator.Natural::lcm(ratB.denominator));
-	Natural mulA = totDenom/ratA.denominator; // РЅР° СЃРєРѕР»СЊРєРѕ РЅР°РґРѕ РґРѕРјРЅРѕР¶РёС‚СЊ С‡РёСЃР»РёС‚РµР»СЊ Рђ
-	Natural mulB = totDenom / ratB.denominator; // РґР»СЏ B
+	Natural totDenom = (denominator.Natural::lcm(ratB.denominator));
+	Natural mulA = totDenom / denominator; // на сколько надо домножить числитель А
+	Natural mulB = totDenom / ratB.denominator; // для B
 	Rational ratAM;
-	ratAM.nominator = ratA.nominator.MUL_ZZ_Z(ratA.nominator.TRANS_N_Z(mulA));
+	ratAM.nominator = nominator.MUL_ZZ_Z(nominator.TRANS_N_Z(mulA));
 	ratAM.denominator = totDenom;
 	Rational ratBM;
 	ratBM.nominator = ratB.nominator.MUL_ZZ_Z(ratB.nominator.TRANS_N_Z(mulB));
@@ -129,36 +128,46 @@ Rational Rational::ADD_QQ_Q(const Rational& constRatA, const Rational& constRatB
 }
 
 
-Rational Rational::SUB_QQ_Q(const Rational& constRatA, const Rational& constRatB) //Р’С‹С‡РёС‚Р°РЅРёРµ РґСЂРѕР±РµР№
-{ //sub - РІС‹С‡РёС‚Р°РЅРёРµ. Р’СЃС‘ Р°РЅР°Р»РѕРіРёС‡РЅРѕ СЃР»РѕР¶РµРЅРёСЋ. РСЃРїРѕР»СЊР·СѓРµРј С„СѓРЅРєС†РёСЋ СЃРјРµРЅС‹ Р·РЅР°РєР° РґР»СЏ 2РіРѕ С‡РёСЃР»РёС‚РµР»СЏ
-	Rational ratA = constRatA;
+Rational Rational::SUB_QQ_Q(const Rational& constRatB) //Вычитание дробей
+{ //sub - вычитание. Всё аналогично сложению. Используем функцию смены знака для 2го числителя
 	Rational tempRatB = constRatB;
 	Integer revB = tempRatB.nominator.MUL_ZM_Z();
 	Rational ratB = Rational(revB, tempRatB.denominator);
-	return RED_Q_Q(ADD_QQ_Q(ratA, ratB));
+	return RED_Q_Q(ADD_QQ_Q(ratB));
 }
 
-Rational Rational::MUL_QQ_Q(const Rational& ConstRatA, const Rational& ConstRatB)
-{//РЈРјРЅРѕР¶РµРЅРёРµ РґСЂРѕР±РµР№ || РЎСЃС‹Р»РєР° РЅР° MUL_ZZ_Z
-	Rational ratA = ConstRatA;
+Rational Rational::MUL_QQ_Q(const Rational& ConstRatB)
+{//Умножение дробей || Ссылка на MUL_ZZ_Z
 	Rational ratB = ConstRatB;
-	Integer nom = ratA.nominator.Integer::MUL_ZZ_Z(ratB.nominator);
-	Natural denom = (ratA.denominator * ratB.denominator);
+	Integer nom = nominator.Integer::MUL_ZZ_Z(ratB.nominator);
+	Natural denom = (denominator * ratB.denominator);
 	Rational ans(nom, denom);
 	return RED_Q_Q(ans);
 }
 
-Rational Rational::DIV_QQ_Q(const Rational& constRatA, const Rational& constRatB)
-{//Р”РµР»РµРЅРёРµ РґСЂРѕР±РµР№ (РґРµР»РёС‚РµР»СЊ РѕС‚Р»РёС‡РµРЅ РѕС‚ РЅСѓР»СЏ) || РЎСЃС‹Р»РєР° РЅР° MUL_ZZ_Z
-	Rational ratA = constRatA;
+Rational Rational::DIV_QQ_Q(const Rational& constRatB)
+{//Деление дробей (делитель отличен от нуля) || Ссылка на MUL_ZZ_Z
 	Rational ratB = constRatB;
 	bool signB = ratB.nominator.getSign();
 	Natural unsNominator = Natural(ratB.nominator.getValue());
-	Rational revRatB(ratA.nominator.Integer::TRANS_N_Z(ratB.denominator), unsNominator);//РїРµСЂРµРІРѕСЂР°С‡РёРІР°РµРј РІС‚РѕСЂСѓСЋ РґСЂРѕР±СЊ
-	if (signB == true)//РµСЃР»Рё РјРёРЅСѓСЃ Р±С‹Р» РїРѕС‚РµСЂСЏРЅ, С‚Рѕ С‡РµСЂРµР· MUL_ZM_Z РјРµРЅСЏРµРј Р·РЅР°Рє(РЅРµ РїСѓС‚Р°С‚СЊ СЃ ZZ_Z) 
+	Rational revRatB(nominator.Integer::TRANS_N_Z(ratB.denominator), unsNominator);//переворачиваем вторую дробь
+	if (signB == true)//если минус был потерян, то через MUL_ZM_Z меняем знак(не путать с ZZ_Z) 
 	{
 		revRatB.nominator = revRatB.nominator.Integer::MUL_ZM_Z();
 	}
-	Rational ans = MUL_QQ_Q(ratA, revRatB);
+	Rational ans = MUL_QQ_Q(revRatB);
 	return RED_Q_Q(ans);
+}
+Integer Rational::get_nominator()
+{
+	return nominator;
+}
+
+Natural Rational::get_denominator()
+{
+	return denominator;
+}
+
+bool Rational::is_zero() {
+	return (nominator.getValue() == "0");
 }

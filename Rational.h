@@ -9,20 +9,21 @@ private:
     Integer nominator;
     Natural denominator;
 public:
-    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ, Р·РЅР°РјРµРЅР°С‚РµР»СЊ РЅРµ 0.
+    //Конструктор, знаменатель не 0.
     Rational();
     Rational(Integer, Natural);
     Rational(std::string str);
-
+    bool is_zero();
     void print() const;
     std::string str_() const;
-
-    Rational RED_Q_Q(const Rational&);//РЎРѕРєСЂР°С‰РµРЅРёРµ РґСЂРѕР±Рё || РЎСЃС‹Р»РєР° РЅР° ABS_Z_N,  GCF_NN_N  Рё  DIV_ZZ_Z
-    bool INT_Q_B(const Rational&);//РџСЂРѕРІРµСЂРєР° СЃРѕРєСЂР°С‰РµРЅРЅРѕРіРѕ РґСЂРѕР±РЅРѕРіРѕ РЅР° С†РµР»РѕРµ, РµСЃР»Рё СЂР°С†РёРѕРЅР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј, С‚Рѕ В«РґР°В», РёРЅР°С‡Рµ В«РЅРµС‚В»
-    Rational TRANS_Z_Q(const  Integer&);//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ С†РµР»РѕРіРѕ РІ РґСЂРѕР±РЅРѕРµ
-    Integer TRANS_Q_Z(const Rational&);//РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ СЃРѕРєСЂР°С‰РµРЅРЅРѕРіРѕ РґСЂРѕР±РЅРѕРіРѕ РІ С†РµР»РѕРµ (РµСЃР»Рё Р·РЅР°РјРµРЅР°С‚РµР»СЊ СЂР°РІРµРЅ 1)
-    Rational ADD_QQ_Q(const Rational&, const Rational&);//РЎР»РѕР¶РµРЅРёРµ РґСЂРѕР±РµР№ || РЎСЃС‹Р»РєР° РЅР° LCM_NN_N Рё MUL_ZZ_Z, ADD_ZZ_Z
-    Rational SUB_QQ_Q(const Rational&, const Rational&);//Р’С‹С‡РёС‚Р°РЅРёРµ РґСЂРѕР±РµР№ || РЎСЃС‹Р»РєР° РЅР° LCM_NN_N, MUL_ZZ_Z Рё SUB_ZZ_Z
-    Rational MUL_QQ_Q(const Rational&, const Rational&);//РЈРјРЅРѕР¶РµРЅРёРµ РґСЂРѕР±РµР№ || РЎСЃС‹Р»РєР° РЅР° MUL_ZZ_Z
-    Rational DIV_QQ_Q(const Rational&, const Rational&);//Р”РµР»РµРЅРёРµ РґСЂРѕР±РµР№ (РґРµР»РёС‚РµР»СЊ РѕС‚Р»РёС‡РµРЅ РѕС‚ РЅСѓР»СЏ) || РЎСЃС‹Р»РєР° РЅР° MUL_ZZ_Z
+    Integer get_nominator();
+    Natural get_denominator();
+    Rational RED_Q_Q(const Rational&);//Сокращение дроби || Ссылка на ABS_Z_N,  GCF_NN_N  и  DIV_ZZ_Z
+    bool INT_Q_B(const Rational&);//Проверка сокращенного дробного на целое, если рациональное число является целым, то «да», иначе «нет»
+    Rational TRANS_Z_Q(const  Integer&);//Преобразование целого в дробное
+    Integer TRANS_Q_Z(const Rational&);//Преобразование сокращенного дробного в целое (если знаменатель равен 1)
+    Rational ADD_QQ_Q(const Rational&);//Сложение дробей || Ссылка на LCM_NN_N и MUL_ZZ_Z, ADD_ZZ_Z
+    Rational SUB_QQ_Q(const Rational&);//Вычитание дробей || Ссылка на LCM_NN_N, MUL_ZZ_Z и SUB_ZZ_Z
+    Rational MUL_QQ_Q(const Rational&);//Умножение дробей || Ссылка на MUL_ZZ_Z
+    Rational DIV_QQ_Q(const Rational&);//Деление дробей (делитель отличен от нуля) || Ссылка на MUL_ZZ_Z
 };

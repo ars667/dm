@@ -1,5 +1,4 @@
-#ifndef Natural_h
-#define Natural_h
+#pragma once
 
 #include <vector>
 #include <string>
@@ -8,27 +7,27 @@
 class Natural
 {
 
-    int n; // РЅРѕРјРµСЂ СЃС‚Р°СЂС€РµР№ РїРѕР·РёС†РёРё
+    int n=0; // номер старшей позиции
     std::vector<int> digit = {};
 
 public:
     Natural();
     Natural(std::string s);
 
-    Natural operator+(const Natural& other); // РЎР»РѕР¶РµРЅРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅС‹С… С‡РёСЃРµР»
+    Natural operator+(const Natural& other); // Сложение натуральных чисел
     // ADD_NN_N
 
     Natural operator-(const Natural& other);
 
-    Natural operator*(const Natural& digit); // РЈРјРЅРѕР¶РµРЅРёРµ РЅР°С‚СѓСЂР°Р»СЊРЅС‹С… С‡РёСЃРµР»
+    Natural operator*(const Natural& digit); // Умножение натуральных чисел
     // MUL_NN_N
     Natural operator/(const Natural& digit);
 
     Natural operator%(const Natural& digit);
 
-    Natural gcd(Natural& other); // РЅРѕРґ
+    Natural gcd(const Natural& other); // нод
 
-    Natural lcm(Natural& other); // РЅРѕРє
+    Natural lcm(const Natural& other); // нок
 
     int operator>(const Natural& other);
 
@@ -46,4 +45,3 @@ public:
 
     std::string getDigit();
 };
-#endif
