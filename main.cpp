@@ -131,11 +131,11 @@ void int_func()
 
 int main()
 {
-    std::cout << "enter, please:" << '\n'
-              << "0 - natural" << '\n'
-              << "1 - integer" << '\n'
-              << "2 - rational" << '\n'
-              << "3 - polynom";
+    std::cout << "enter, please:\n"
+              << "0 - natural\n"
+              << "1 - integer\n"
+              << "2 - rational\n"
+              << "3 - polynom\n";
 
     int choose = 0;
     std::cin >> choose;
