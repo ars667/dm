@@ -1,4 +1,4 @@
-#include "natural.h"
+#include "Natural.h"
 #include "Integer.h"
 #include "Rational.h"
 #include <iostream>
