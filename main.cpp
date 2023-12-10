@@ -1,9 +1,10 @@
 #include "Natural.h"
 #include "Integer.h"
 #include "Rational.h"
+#include "Polynomial.h"
 #include <iostream>
 #include <string>
-
+#include <vector>
 void nat_func();
 void int_func();
 void rat_func();
@@ -30,16 +31,28 @@ int main()
     case 2:
         rat_func();
         break;
-	case 3:
-		poly_func();
-		break;
+    case 3:
+        poly_func();
+        break;
     default:
         break;
     }
     return 0;
 }
+Polynomial nod_polynom(Polynomial poly_m, Polynomial poly_n) {
+    if (poly_m.poly_empty()) {
+        //cout << "poly_m = " << poly_m.visual() << "\n";
+        return poly_n;
+    }
+    else if (poly_n.poly_empty()) {
+        //cout << "poly_m = " << poly_m.visual() << "\n";
+        //cout << "poly_n = " << poly_n.visual() << "\n";
+        return poly_m;
+    }
+    return nod_polynom(poly_n, poly_n.ost_div_pp(poly_m));
+}
 Polynomial read_poly() {
-    vector <Rational> coef;
+    std::vector <Rational> coef;
     std::string s;
     std::cout << "Input polynom (enter the coefficient starting from the oldest; end of input character q):\n";
     std::cin >> s;
@@ -155,7 +168,7 @@ void poly_func()
             Polynomial poly = read_poly();
             poly.visual();
             Rational coef = read_rational();
-            
+
             Polynomial poly_res = poly * coef;
             std::cout << "Result is ";
             poly_res.visual();
@@ -176,7 +189,7 @@ void poly_func()
             poly1.visual();
             Polynomial poly2 = read_poly();
             poly2.visual();
-            Polynomial poly3 = nod_polynom(poly1,poly2);
+            Polynomial poly3 = nod_polynom(poly1, poly2);
             std::cout << "Result is ";
             poly3.visual();
             break;
@@ -266,7 +279,7 @@ void int_func()
     char operation = 'o';
     while (operation != 'q')
     {
-        std::cout << "Enter (___) value in brackets or Quit(q): _\b" ;
+        std::cout << "Enter (___) value in brackets or Quit(q): _\b";
         std::cin >> operation;
         std::cout << "\n";
         switch (operation)
@@ -288,9 +301,9 @@ void int_func()
             std::string intAs;
             std::cin >> intAs;
             Integer intA = Integer(intAs);
-            if(intA.POZ_Z_D() == 2)
-                std::cout <<intA.str_() << " - positive!" << "\n";
-            else if(intA.POZ_Z_D() == 1)
+            if (intA.POZ_Z_D() == 2)
+                std::cout << intA.str_() << " - positive!" << "\n";
+            else if (intA.POZ_Z_D() == 1)
                 std::cout << intA.str_() << " - negative!" << "\n";
             else
                 std::cout << intA.str_() << " - is null!" << "\n";
@@ -450,7 +463,7 @@ void rat_func()
             ratA = ratA.RED_Q_Q(ratA);
             if (ratA.INT_Q_B(ratA) == true)
                 std::cout << ratA.str_() << " - integer!" << "\n";
-            else 
+            else
                 std::cout << ratA.str_() << " - fraction!" << "\n";
             break;
         }
@@ -474,7 +487,7 @@ void rat_func()
             std::cin >> ratAs;
             Rational ratA = Rational(ratAs);
             ratA = ratA.RED_Q_Q(ratA);
-            if(ratA.INT_Q_B(ratA) == false)
+            if (ratA.INT_Q_B(ratA) == false)
                 std::cout << "Denominator is not one!" << "\n";
             else
                 std::cout << "Result is " << ratA.TRANS_Q_Z(ratA).str_() << "\n";
