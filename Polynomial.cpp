@@ -130,40 +130,39 @@ Polynomial Polynomial::add_polynom(Polynomial poly1, Polynomial poly2, bool minu
     return Polynomial(new_coef);
 }
 
-//ОК
+//пїЅпїЅ
 Polynomial Polynomial::ost_div_pp(Polynomial poly_n) {
     Polynomial poly_m = (*this);
     Polynomial poly_r = poly_m - poly_n.mul_pol(poly_m.DIV_PP_P(poly_n));
     poly_r.norm_polynom();
     return poly_r;
 }
-
-//ОК
+//  P = N*Q + R
+// R = P - N*Q
+//пїЅпїЅ
 //Polynomial Polynomial::nod_polynom(Pol)
-// Сложение двух многочленов
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::operator+(const Polynomial& other) {
     Polynomial poly = Polynomial::add_polynom(*this, other, false);
     return poly;
 }
 
-//ОК
-// Вычитание двух многочленов
+//пїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::operator-(const Polynomial& other) {
     Polynomial poly = add_polynom(*this, other, true);
     return poly;
 }
 
-
-
 Polynomial Polynomial::operator*(Rational a) const {
-    Polynomial result(*this);  // Создаем копию многочлена
+    Polynomial result(*this);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     for (Rational& coefficient : result.coef) {
         coefficient = coefficient.MUL_QQ_Q(a);
     }
     return result;
 }
 
-// Умножение многочлена на x^k Особенности: возвращает новый полином, не меняя текущий
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ x^k пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::multiplyByXk(int k) const {
     Polynomial result = *this;
     for (int i = 0; i < k; ++i) {
@@ -172,13 +171,13 @@ Polynomial Polynomial::multiplyByXk(int k) const {
     return result;
 }
 
-// Нахождение старшего коэффициента многочлена
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Rational Polynomial::leadingCoefficientNum() {
     return coef[0];
 }
 
 
-// Нахождение степени многочлена
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 int Polynomial::degree() const {
     int k = 0;
     for (Rational num : coef) {
@@ -191,11 +190,10 @@ int Polynomial::degree() const {
     }
     return static_cast<int>(coef.size()) - FREE_TERM + k;
 }
-/*
+
 Rational Polynomial::calculateLCMandGCD() {
     Natural commonDenominator("1");
     Integer commonNumerator("0");
-
     for (Rational& term : coef) {
         //commonDenominator = LCM_NN_N(commonDenominator, term.get_denominator());
         commonDenominator = commonDenominator.lcm(term.get_denominator());
@@ -210,17 +208,20 @@ void Polynomial::nod_nok() {
     Rational result = calculateLCMandGCD();
     //std::pair<int, int> p = make_pair(result.second, result.first);
 
-   // std::cout << "НОД числителей: " << result.first << std::endl;
-    //std::cout << "НОК знаменателей: " << result.second << std::endl;
+    //std::cout << "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << result.first << std::endl;
+    //std::cout << "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << result.second << std::endl;
     //std::cout << result.first << "/" << result.second << "*(";
-    std::cout << "НОД числителей: ";  result.get_nominator().print(); 
-    std::cout << "\nНОК знаменателей: "; result.get_denominator().print(); 
+    std::cout << "NODE of numerators: ";  result.get_nominator().print();
+    std::cout << "\nNOK of denominators: "; result.get_denominator().print();
     std::cout << "\n"; result.print(); std::cout << "*(";
     Polynomial help = *this;
-    help = help * result;
+    //help = help * result;
+    Rational one("1");
+    help = help * (one.DIV_QQ_Q(result));
     help.visual();
     std::cout << ")\n";
-}*/
+}
+
 
 
 void Polynomial::visual() {
@@ -228,10 +229,15 @@ void Polynomial::visual() {
     int i = 0;
     for (auto& x : coef) {
         x.print();
-        std::cout << "x^" << deg << " ";
+        if (deg != 0) {
+            std::cout << "x^" << deg << " ";
+            std::cout << "+";
+        }
         deg--;
     }
+    std::cout << "\n";
 }
+
 
 
 
