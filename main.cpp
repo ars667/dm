@@ -8,7 +8,7 @@
 void nat_func();
 void int_func();
 void rat_func();
-
+void poly_func();
 int main()
 {
     std::cout
@@ -179,7 +179,7 @@ void poly_func()
             std::cout << "Enter polynomial:\n";
             Polynomial poly = read_poly();
             poly.visual();
-            poly.leadingCoefficientNum();
+            poly.nod_nok();
             break;
         }
         case 'g':
