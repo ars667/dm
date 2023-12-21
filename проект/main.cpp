@@ -1,4 +1,4 @@
-﻿#include "Natural.h"
+#include "Natural.h"
 #include "Integer.h"
 #include "Rational.h"
 #include "Polynomial.h"
@@ -9,7 +9,6 @@ void nat_func();
 void int_func();
 void rat_func();
 void poly_func();
-
 int main()
 {
     std::cout
@@ -40,28 +39,12 @@ int main()
     }
     return 0;
 }
-Polynomial nod_polynom(Polynomial poly_m, Polynomial poly_n) {
-    if (poly_m.poly_empty()) {
-        //cout << "poly_m = " << poly_m.visual() << "\n";
-        return poly_n;
-    }
-    else if (poly_n.poly_empty()) {
-        //cout << "poly_m = " << poly_m.visual() << "\n";
-        //cout << "poly_n = " << poly_n.visual() << "\n";
-        return poly_m;
-    }
-    return nod_polynom(poly_n, poly_n.ost_div_pp(poly_m));
-}
+
 Polynomial read_poly() {
-    std::vector <Rational> coef;
     std::string s;
     std::cout << "Input polynom (enter the coefficient starting from the oldest; end of input character q):\n";
     std::cin >> s;
-    while (s != "q") {
-        coef.push_back(Rational(s));
-        std::cin >> s;
-    }
-    return Polynomial(coef);
+    return Polynomial(s);
 }
 Rational read_rational() {
     Rational coef;
@@ -122,7 +105,7 @@ void poly_func()
             poly1.visual();
             Polynomial poly2 = read_poly();
             poly2.visual();
-            Polynomial poly3 = poly1.mul_pol(poly2);
+            Polynomial poly3 = poly1.MUL_PP_P(poly2);
             std::cout << "Result is ";
             poly3.visual();
             break;
@@ -158,7 +141,7 @@ void poly_func()
             poly1.visual();
             Polynomial poly2 = read_poly();
             poly2.visual();
-            Polynomial poly3 = poly1.ost_div_pp(poly2);
+            Polynomial poly3 = poly1.MOD_PP_P(poly2);
             std::cout << "Result is ";
             poly3.visual();
             break;
@@ -180,7 +163,7 @@ void poly_func()
             std::cout << "Enter polynomial:\n";
             Polynomial poly = read_poly();
             poly.visual();
-            poly.leadingCoefficientNum();
+            poly.nod_nok();
             break;
         }
         case 'g':
@@ -190,7 +173,7 @@ void poly_func()
             poly1.visual();
             Polynomial poly2 = read_poly();
             poly2.visual();
-            Polynomial poly3 = nod_polynom(poly1, poly2);
+            Polynomial poly3 = poly1.nod_polynom(poly1, poly2);
             std::cout << "Result is ";
             poly3.visual();
             break;
@@ -558,3 +541,4 @@ void rat_func()
     }
 
 };
+
