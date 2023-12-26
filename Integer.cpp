@@ -2,6 +2,26 @@
 #include <iostream>
 using namespace std;
 
+
+Integer Integer::GCF_NN_N(Integer a, Integer b) {
+	Integer c(b);
+	//while (b != 0) {
+	while (c.getValue() != "0") {
+		Integer temp(c);
+		c = a.MOD_ZZ_Z(c);
+		a = temp;
+		//int temp = b;
+		//b = a % b;
+		//a = temp;
+	}
+	return a;
+}
+
+Integer Integer::LCM_NN_N(Integer a, Integer b) {
+	;
+	return (a.MUL_ZZ_Z(b).DIV_ZZ_Z(GCF_NN_N(a, b)));
+}
+
 Integer::Integer()
 {
 	sign = false;
@@ -59,13 +79,13 @@ std::string Integer::getValue() const
 }
 
 
-// ГЂГЎГ±Г®Г«ГѕГІГ­Г Гї ГўГҐГ«ГЁГ·ГЁГ­Г  Г·ГЁГ±Г«Г , Г°ГҐГ§ГіГ«ГјГІГ ГІ - Г­Г ГІГіГ°Г Г«ГјГ­Г®ГҐ
-//Г¤ГҐГ«Г Г«Г  ГЃГ Г°Г ГҐГўГ  Г….ГЌ.
+// Абсолютная величина числа, результат - натуральное
+//делала Бараева Е.Н.
 Natural Integer::ABS_Z_N() {
 	return value;
 }
 
-unsigned int Integer::POZ_Z_D() // ГЋГЇГ°ГҐГ¤ГҐГ«ГҐГ­ГЁГҐ ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г®Г±ГІГЁ Г·ГЁГ±Г«Г  (2 - ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г®ГҐ, 0 вЂ” Г°Г ГўГ­Г®ГҐ Г­ГіГ«Гѕ, 1 - Г®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г®ГҐ)
+unsigned int Integer::POZ_Z_D() // Определение положительности числа (2 - положительное, 0 — равное нулю, 1 - отрицательное)
 {
 	Natural val = value;
 	if ((val).isZero())
@@ -74,11 +94,10 @@ unsigned int Integer::POZ_Z_D() // ГЋГЇГ°ГҐГ¤ГҐГ«ГҐГ­ГЁГҐ ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­
 		return 2;
 	if (sign == true)
 		return 1;
-	return 0;
 }
 
-//// Г¤ГҐГ«Г Г«Г  ГЂГ­ГЁГ№ГҐГ­ГЄГ® ГЂ.Г€.
-Integer Integer::MUL_ZM_Z() { // ГіГ¬Г­Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г®ГЈГ® Г­Г  -1
+//// делала Анищенко А.И.
+Integer Integer::MUL_ZM_Z() { // умножение целого на -1
 	Integer ans;
 	ans.value = value;
 	if (sign == true)
@@ -88,23 +107,23 @@ Integer Integer::MUL_ZM_Z() { // ГіГ¬Г­Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г®ГЈГ® Г­Г  -1
 	return ans;
 }
 
-//// ГЏГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГҐ Г­Г ГІГіГ°Г Г«ГјГ­Г®ГЈГ® Гў Г¶ГҐГ«Г®ГҐ
-////Г¤ГҐГ«Г Г«Г  ГЃГ Г°Г ГҐГўГ  Г….ГЌ.
+//// Преобразование натурального в целое
+////делала Бараева Е.Н.
 Integer Integer::TRANS_N_Z(const Natural& natural) {
 	return Integer(false, natural);
 }
 
-// ГЏГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГҐ Г¶ГҐГ«Г®ГЈГ® Г­ГҐГ®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г®ГЈГ® Гў Г­Г ГІГіГ°Г Г«ГјГ­Г®ГҐ
-//Г¤ГҐГ«Г Г«Г  ГЃГ Г°Г ГҐГўГ  Г….ГЌ.
+// Преобразование целого неотрицательного в натуральное
+//делала Бараева Е.Н.
 Natural Integer::TRANS_Z_N(const Integer& integer) {
 	if (sign == true)
-		throw "Negative number"; // ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г­ГҐГ®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г®Г±ГІГј, ГўГ»ГЎГ°Г Г±Г»ГўГ Г­ГЁГҐ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї
-	// return ABS_Z_N(integer); Г¬Г®Г¦Г­Г® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј ABS_Z_N, ГІ.ГЄ. ГЄГ®Г¤ Г¤Г Г«ГҐГҐ ГЇГ®ГўГІГ®Г°ГїГҐГІ ГЅГІГі ГґГіГ­ГЄГ¶ГЁГѕ
+		throw "Negative number"; // проверка на неотрицательность, выбрасывание исключения
+	// return ABS_Z_N(integer); можно использовать ABS_Z_N, т.к. код далее повторяет эту функцию
 	return Natural(integer.value);
 }
 
-Integer Integer::ADD_ZZ_Z(const Integer& intB) //Г‘Г«Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г»Гµ Г·ГЁГ±ГҐГ«, ABS_Z_N - ГўГҐГ°Г­ГіГІГј Г­Г ГІ, COM_NN_D - Г±Г°Г ГўГ­ГЁГІГј 2 Г­Г ГІ, ADD_NN_N SUB_NN_N MUL_ZM_Z - Г±Г¬ГҐГ­Г  Г§Г­Г ГЄГ 
-{	//POZ_Z_D - Г®ГЇГ° ГЇГ®Г«Г®Г¦ГЁГІ(Г¬ГҐГёГ ГҐГІ Г¤Г«Гї Г±Г«ГіГ·Г ГҐГў Г± 0, ГІГ ГЄ Г·ГІГ® Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГѕ.)
+Integer Integer::ADD_ZZ_Z(const Integer& intB) //Сложение целых чисел, ABS_Z_N - вернуть нат, COM_NN_D - сравнить 2 нат, ADD_NN_N SUB_NN_N MUL_ZM_Z - смена знака
+{	//POZ_Z_D - опр положит(мешает для случаев с 0, так что не использую.)
 	Natural sum;
 	if (sign == false && intB.sign == false)
 	{
@@ -121,7 +140,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //Г‘Г«Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г»Гµ Г·Г
 		int bigger = value > intB.value;
 		if (bigger == 0)
 			return Integer(false, (value - intB.value));
-		else if (bigger == 2)//A > B ГЇГ® Г¬Г®Г¤
+		else if (bigger == 2)//A > B по мод
 		{
 			sum = (value - intB.value);
 			if (sign == true)
@@ -131,7 +150,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //Г‘Г«Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г»Гµ Г·Г
 			else
 				return Integer(false, sum);
 		}
-		else if (bigger == 1)//A < B ГЇГ® Г¬Г®Г¤
+		else if (bigger == 1)//A < B по мод
 		{
 			Natural bVal = intB.value;
 			sum = (bVal - value);
@@ -148,7 +167,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //Г‘Г«Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г»Гµ Г·Г
 		return Integer();
 }
 
-Integer Integer::SUB_ZZ_Z(const Integer& intB) //Г‚Г»Г·ГЁГІГ Г­ГЁГҐ Г¶ГҐГ«Г»Гµ Г·ГЁГ±ГҐГ«, POZ_Z_D ABS_Z_N COM_NN_D ADD_NN_N SUB_NN_N MUL_ZM_Z
+Integer Integer::SUB_ZZ_Z(const Integer& intB) //Вычитание целых чисел, POZ_Z_D ABS_Z_N COM_NN_D ADD_NN_N SUB_NN_N MUL_ZM_Z
 {
 	Integer tempB = intB;
 	Integer intRevB = tempB.MUL_ZM_Z();
@@ -156,7 +175,7 @@ Integer Integer::SUB_ZZ_Z(const Integer& intB) //Г‚Г»Г·ГЁГІГ Г­ГЁГҐ Г¶ГҐГ«Г»Гµ Г
 	return result;
 }
 
-Integer Integer::MUL_ZZ_Z(const Integer& intB) // Г“Г¬Г­Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г»Гµ Г·ГЁГ±ГҐГ«, POZ_Z_D ABS_Z_N MUL_NN_N MUL_ZM_Z
+Integer Integer::MUL_ZZ_Z(const Integer& intB) // Умножение целых чисел, POZ_Z_D ABS_Z_N MUL_NN_N MUL_ZM_Z
 {
 	bool mulSign = false;
 	Integer tempB = intB;
@@ -170,17 +189,17 @@ Integer Integer::MUL_ZZ_Z(const Integer& intB) // Г“Г¬Г­Г®Г¦ГҐГ­ГЁГҐ Г¶ГҐГ«Г»Гµ 
 	return Integer(mulSign, mult);
 }
 
-// ГґГіГ­ГЄГ¶ГЁГЁ Г¤Г«Гї Г°Г ГЎГ®ГІГ» Г± Г¶ГҐГ«Г»Г¬ГЁ Г·ГЁГ±Г«Г Г¬ГЁ
-//Г¤ГҐГ«Г Г«Г  ГЂГ­ГЁГ№ГҐГ­ГЄГ® ГЂ.Г€.
-Integer Integer::DIV_ZZ_Z(const Integer& b) { // Г¤ГҐГ«ГҐГ­ГЁГҐ Г¶ГҐГ«Г®ГЈГ® Г­Г  Г¶ГҐГ«Г®ГҐ
+// функции для работы с целыми числами
+//делала Анищенко А.И.
+Integer Integer::DIV_ZZ_Z(const Integer& b) { // деление целого на целое
 	Integer result;
 	result.sign = MUL_ZZ_Z(b).sign;
 	result.value = value / b.value;
 	return result;
 }
 
-//Г¤ГҐГ«Г Г«Г  ГЂГ­ГЁГ№ГҐГ­ГЄГ® ГЂ.Г€.
-Integer Integer::MOD_ZZ_Z(const Integer& b) { // Г®Г±ГІГ ГІГ®ГЄ Г®ГІ Г¤ГҐГ«ГҐГ­ГЁГї Г¶ГҐГ«Г®ГЈГ® Г­Г  Г¶ГҐГ«Г®ГҐ
+//делала Анищенко А.И.
+Integer Integer::MOD_ZZ_Z(const Integer& b) { // остаток от деления целого на целое
 	Integer div = DIV_ZZ_Z(b);
 	return Integer(div.sign, value % b.value);
 }

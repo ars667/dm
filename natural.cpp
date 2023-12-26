@@ -6,73 +6,73 @@ Natural::Natural()
 {
 }
 
-Natural::Natural(std::string s) //s - число в виде строки, которое нужно преобразовать в класс 
+Natural::Natural(std::string s) // s - ����� � ���� ������, ������� ����� ������������� � �����
 {
-    int len = s.length(); //получает длину строки и сохраняет её в переменной len
-    for (int i = len - 1; i >= 0; i--) //проходит по строке s в обратном порядке, начиная с последнего символа. Это делается с помощью цикла for, который итерируется от len - 1 до 0.
+    int len = s.length();              // �������� ����� ������ � ��������� � � ���������� len
+    for (int i = len - 1; i >= 0; i--) // �������� �� ������ s � �������� �������, ������� � ���������� �������. ��� �������� � ������� ����� for, ������� ����������� �� len - 1 �� 0.
     {
-        char c = s[i]; 
-        if (c >= '0' && c <= '9') //проверяет, если символ является цифрой, то преобразует символл в число
+        char c = s[i];
+        if (c >= '0' && c <= '9') // ���������, ���� ������ �������� ������, �� ����������� ������� � �����
         {
-            this->digit.push_back(c - '0'); //добавляет в вектор digit
+            this->digit.push_back(c - '0'); // ��������� � ������ digit
         }
     }
-    this->n = digit.size(); //устанавливает значение n равным размеру вектора digit. Значение n представляет собой количество цифр в числе.
+    this->n = digit.size(); // ������������� �������� n ������ ������� ������� digit. �������� n ������������ ����� ���������� ���� � �����.
 }
 
-Natural Natural::operator+(const Natural& other)
+Natural Natural::operator+(const Natural &other)
 {
     Natural result("");
-    int carry = 0; //carry - для хранения переноса при сложении цифр
+    int carry = 0; // carry - ��� �������� �������� ��� �������� ����
 
     for (int i = 0; i < std::max(n, other.n) || carry; ++i)
     {
-        if (i == result.n) //если текущий индекс i равен количеству цифр в result, она увеличивает количество цифр в result.
+        if (i == result.n) // ���� ������� ������ i ����� ���������� ���� � result, ��� ����������� ���������� ���� � result.
             // result.digit.push_back(0);
             result.n++;
-        int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0); //она вычисляет сумму текущего переноса и текущих цифр в обоих числах (или 0, если одно из чисел уже полностью обработано).
-        result.digit.push_back(sum % 10); //добавляет остаток от деления суммы на 10 в вектор цифр result и обновляет перенос, делением суммы на 10.
+        int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0); // ��� ��������� ����� �������� �������� � ������� ���� � ����� ������ (��� 0, ���� ���� �� ����� ��� ��������� ����������).
+        result.digit.push_back(sum % 10);                                              // ��������� ������� �� ������� ����� �� 10 � ������ ���� result � ��������� �������, �������� ����� �� 10.
         carry = sum / 10;
     }
 
-    result.n = result.digit.size(); //обновляет количество цифр в result и возвращает result.
+    result.n = result.digit.size(); // ��������� ���������� ���� � result � ���������� result.
     return result;
 }
 
-Natural Natural::operator-(const Natural& other)
+Natural Natural::operator-(const Natural &other)
 {
-    if ((*this > other == 1) || (*this > other == 0)) //проверяет, больше ли исходное число (*this) или равно числу other.
+    if ((*this > other == 1) || (*this > other == 0)) // ���������, ������ �� �������� ����� (*this) ��� ����� ����� other.
     {
-        return Natural("0"); //т.к. нельзя вычесть большее число из меньшего
+        return Natural("0"); // �.�. ������ ������� ������� ����� �� ��������
     }
 
     Natural result("");
-    int borrow = 0; //borrow - для хранения заема при вычитании цифр.
+    int borrow = 0; // borrow - ��� �������� ����� ��� ��������� ����.
 
-    for (int i = 0; i < std::max(n, other.n) || borrow; ++i) //ычисляет разность текущего заема и текущих цифр в обоих числах (или 0, если одно из чисел уже полностью обработано
+    for (int i = 0; i < std::max(n, other.n) || borrow; ++i) // �������� �������� �������� ����� � ������� ���� � ����� ������ (��� 0, ���� ���� �� ����� ��� ��������� ����������
     {
         int sub = (i < n ? digit[i] : 0) - borrow - (i < other.n ? other.digit[i] : 0);
 
-        if (sub < 0) //добавляет 10 к разности и устанавливает заем равным 1.
+        if (sub < 0) // ��������� 10 � �������� � ������������� ���� ������ 1.
         {
             sub += 10;
             borrow = 1;
         }
         else
         {
-            borrow = 0; //устанавливает заем равным 0.
+            borrow = 0; // ������������� ���� ������ 0.
         }
 
-        if (i == result.n) //если текущий индекс i равен количеству цифр в result
+        if (i == result.n) // ���� ������� ������ i ����� ���������� ���� � result
         {
             // result.digit.push_back(0);
-            result.n++; //увеличивает количество цифр в result
+            result.n++; // ����������� ���������� ���� � result
         }
 
         result.digit.push_back(sub);
     }
 
-    while (result.n > 1 && result.digit.back() == 0) //удаляет все незначащие нули в начале числа (если они есть)
+    while (result.n > 1 && result.digit.back() == 0) // ������� ��� ���������� ���� � ������ ����� (���� ��� ����)
     {
         result.digit.pop_back();
         result.n--;
@@ -81,74 +81,71 @@ Natural Natural::operator-(const Natural& other)
     return result;
 }
 
-Natural Natural::operator*(const Natural& other)
+Natural Natural::operator*(const Natural &other)
 {
-    Natural result("");
+    Natural result("0");
+    
+    result.n = (this->n + other.n);
+    result.digit.resize(this->n + other.n);
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < this->n; i++)
     {
-        int carry = 0; //carry для хранения переноса при умножении цифр 
-        Natural temp("");
-
-        for (int j = 0; j < other.n || carry; ++j) //проходит по каждой цифре числа other или пока есть перенос
+        int carry = 0;
+        for (int j = 0; j < other.n || carry != 0; j++)
         {
-            if (j == temp.n) //если текущий индекс j равен количеству цифр в temp, она добавляет 0 в вектор цифр temp и увеличивает количество цифр в temp
-                temp.digit.push_back(0);
-            temp.n++;
-
-            int product = carry + digit[i] * (j < other.n ? other.digit[j] : 0); //вычисляет произведение текущего переноса и текущих цифр в обоих числах (или 0, если одно из чисел уже полностью обработано).
-            temp.digit[j] = product % 10;
-            carry = product / 10; //обновляет перенос, делением произведения на 10
+            int cur = result.digit[i + j] + this->digit[i] * (j < other.digit.size() ? other.digit[j] : 0) + carry;
+            result.digit[i + j] = cur % 10;
+            carry = cur / 10;
         }
-
-        for (int j = 0; j < temp.n; ++j) //для сдвига цифр в temp
-            temp.digit[j] *= pow(10, i); //умножает каждую цифру в temp на 10 в степени i
-        result = result + temp;
+    } 
+    while (result.digit.size() > 1 && result.digit.back() == 0) {
+        result.digit.pop_back();
     }
+    result.n = result.digit.size();
 
     return result;
 }
 
-Natural Natural::operator/(const Natural& other)
+Natural Natural::operator/(const Natural &other)
 {
     if (other.isZero())
     {
-        throw std::invalid_argument("Division by zero"); //функция выбрасывает исключение, так как деление на ноль не определено.
+        throw std::invalid_argument("Division by zero"); // ������� ����������� ����������, ��� ��� ������� �� ���� �� ����������.
     }
-    Natural result("0"); 
+    Natural result("0");
 
-    Natural currentDividend = *this; // currentDividend - инициализируется значением исходного объекта. Этот объект будет использоваться для хранения текущего делимого в процессе деления.
+    Natural currentDividend = *this; // currentDividend - ���������������� ��������� ��������� �������. ���� ������ ����� �������������� ��� �������� �������� �������� � �������� �������.
 
-    while (currentDividend > other == 2 || currentDividend > other == 0) //пока currentDividend больше или равен other
+    while (currentDividend > other == 2 || currentDividend > other == 0) // ���� currentDividend ������ ��� ����� other
     {
-        currentDividend = currentDividend - other; //вычитает other из currentDividend и увеличивает result на 1
+        currentDividend = currentDividend - other; // �������� other �� currentDividend � ����������� result �� 1
         result = result + Natural("1");
     }
 
     return result;
 }
 
-Natural Natural::operator%(const Natural& other)
+Natural Natural::operator%(const Natural &other)
 {
     if (other.isZero())
     {
-        throw std::invalid_argument("Division by zero"); //выбрасывает исключение, так как деление на ноль не определено
+        throw std::invalid_argument("Division by zero"); // ����������� ����������, ��� ��� ������� �� ���� �� ����������
     }
     if (*this > other == 1)
     {
-        return *this; //возвращает исходное число
+        return *this; // ���������� �������� �����
     }
-    Natural currentDividend = *this; //для хранения текущего делимого в процессе деления.
+    Natural currentDividend = *this; // ��� �������� �������� �������� � �������� �������.
 
-    while (currentDividend > other == 2 || currentDividend > other == 0) // на каждом шаге вычитается делитель из текущего делимого.
+    while (currentDividend > other == 2 || currentDividend > other == 0) // �� ������ ���� ���������� �������� �� �������� ��������.
     {
         currentDividend = currentDividend - other;
     }
 
-    return currentDividend; //currentDividend, который теперь содержит остаток от деления исходного числа на other
+    return currentDividend; // currentDividend, ������� ������ �������� ������� �� ������� ��������� ����� �� other
 }
 
-int Natural::operator>(const Natural& other)
+int Natural::operator>(const Natural &other)
 {
     if (this->n > other.n)
     {
@@ -175,27 +172,27 @@ int Natural::operator>(const Natural& other)
     }
 }
 
-Natural Natural::gcd(const Natural& other)
+Natural Natural::gcd(const Natural &other)
 {
     Natural a = *this;
     Natural b = other;
     while (!b.isZero())
     {
-        Natural temp_b = b; 
+        Natural temp_b = b;
         b = a % b;
-        a = temp_b; //обновляет b на остаток от деления a на b и обновляет a на значение temp_b
+        a = temp_b; // ��������� b �� ������� �� ������� a �� b � ��������� a �� �������� temp_b
     }
 
-    return a; //a, который теперь содержит НОД исходного числа и other
+    return a; // a, ������� ������ �������� ��� ��������� ����� � other
 }
 
-Natural Natural::lcm(const Natural& other)
+Natural Natural::lcm(const Natural &other)
 {
-    Natural gcd_result = this->gcd(other); //умножая исходный объект и аргумент, а затем делая полученное произведение на gcd_result
+    Natural gcd_result = this->gcd(other); // ������� �������� ������ � ��������, � ����� ����� ���������� ������������ �� gcd_result
 
     Natural lcm_result = (*this * other) / gcd_result;
 
-    return lcm_result; //lcm_result, который теперь содержит НОК исходного числа и other.
+    return lcm_result; // lcm_result, ������� ������ �������� ��� ��������� ����� � other.
 }
 
 int Natural::isZero() const

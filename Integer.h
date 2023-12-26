@@ -17,9 +17,9 @@ public:
 	std::string getValue() const;
 	
 	//НОД
-	Integer GCF_NN_N(const Integer& a, const Integer& b);
+	Integer GCF_NN_N(Integer a, Integer b);
 	//НОК
-	Integer LCM_NN_N(const Integer&);
+	Integer LCM_NN_N(Integer a, Integer b);
 
 	Natural ABS_Z_N(); //Абсолютная величина числа, результат - натуральное
 	unsigned int POZ_Z_D(); //Определение положительности числа (2 - положительное, 0 — равное нулю, 1 - отрицательное)
