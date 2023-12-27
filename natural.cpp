@@ -4,145 +4,22 @@
 
 Natural::Natural()
 {
+    this->n = 0;
+    this->digit = {};
 }
 
-Natural::Natural(std::string s) // s - ����� � ���� ������, ������� ����� ������������� � �����
+Natural::Natural(std::string s)
 {
-    int len = s.length();              // �������� ����� ������ � ��������� � � ���������� len
-    for (int i = len - 1; i >= 0; i--) // �������� �� ������ s � �������� �������, ������� � ���������� �������. ��� �������� � ������� ����� for, ������� ����������� �� len - 1 �� 0.
+    int len = s.length();
+    for (int i = len - 1; i >= 0; i--)
     {
         char c = s[i];
-        if (c >= '0' && c <= '9') // ���������, ���� ������ �������� ������, �� ����������� ������� � �����
+        if (c >= '0' && c <= '9')
         {
-            this->digit.push_back(c - '0'); // ��������� � ������ digit
+            this->digit.push_back(c - '0');
         }
     }
-    this->n = digit.size(); // ������������� �������� n ������ ������� ������� digit. �������� n ������������ ����� ���������� ���� � �����.
-}
-
-Natural Natural::operator+(const Natural &other)
-{
-    Natural result("");
-    int carry = 0; // carry - ��� �������� �������� ��� �������� ����
-
-    for (int i = 0; i < std::max(n, other.n) || carry; ++i)
-    {
-        if (i == result.n) // ���� ������� ������ i ����� ���������� ���� � result, ��� ����������� ���������� ���� � result.
-            // result.digit.push_back(0);
-            result.n++;
-        int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0); // ��� ��������� ����� �������� �������� � ������� ���� � ����� ������ (��� 0, ���� ���� �� ����� ��� ��������� ����������).
-        result.digit.push_back(sum % 10);                                              // ��������� ������� �� ������� ����� �� 10 � ������ ���� result � ��������� �������, �������� ����� �� 10.
-        carry = sum / 10;
-    }
-
-    result.n = result.digit.size(); // ��������� ���������� ���� � result � ���������� result.
-    return result;
-}
-
-Natural Natural::operator-(const Natural &other)
-{
-    if ((*this > other == 1) || (*this > other == 0)) // ���������, ������ �� �������� ����� (*this) ��� ����� ����� other.
-    {
-        return Natural("0"); // �.�. ������ ������� ������� ����� �� ��������
-    }
-
-    Natural result("");
-    int borrow = 0; // borrow - ��� �������� ����� ��� ��������� ����.
-
-    for (int i = 0; i < std::max(n, other.n) || borrow; ++i) // �������� �������� �������� ����� � ������� ���� � ����� ������ (��� 0, ���� ���� �� ����� ��� ��������� ����������
-    {
-        int sub = (i < n ? digit[i] : 0) - borrow - (i < other.n ? other.digit[i] : 0);
-
-        if (sub < 0) // ��������� 10 � �������� � ������������� ���� ������ 1.
-        {
-            sub += 10;
-            borrow = 1;
-        }
-        else
-        {
-            borrow = 0; // ������������� ���� ������ 0.
-        }
-
-        if (i == result.n) // ���� ������� ������ i ����� ���������� ���� � result
-        {
-            // result.digit.push_back(0);
-            result.n++; // ����������� ���������� ���� � result
-        }
-
-        result.digit.push_back(sub);
-    }
-
-    while (result.n > 1 && result.digit.back() == 0) // ������� ��� ���������� ���� � ������ ����� (���� ��� ����)
-    {
-        result.digit.pop_back();
-        result.n--;
-    }
-
-    return result;
-}
-
-Natural Natural::operator*(const Natural &other)
-{
-    Natural result("0");
-    
-    result.n = (this->n + other.n);
-    result.digit.resize(this->n + other.n);
-
-    for (int i = 0; i < this->n; i++)
-    {
-        int carry = 0;
-        for (int j = 0; j < other.n || carry != 0; j++)
-        {
-            int cur = result.digit[i + j] + this->digit[i] * (j < other.digit.size() ? other.digit[j] : 0) + carry;
-            result.digit[i + j] = cur % 10;
-            carry = cur / 10;
-        }
-    } 
-    while (result.digit.size() > 1 && result.digit.back() == 0) {
-        result.digit.pop_back();
-    }
-    result.n = result.digit.size();
-
-    return result;
-}
-
-Natural Natural::operator/(const Natural &other)
-{
-    if (other.isZero())
-    {
-        throw std::invalid_argument("Division by zero"); // ������� ����������� ����������, ��� ��� ������� �� ���� �� ����������.
-    }
-    Natural result("0");
-
-    Natural currentDividend = *this; // currentDividend - ���������������� ��������� ��������� �������. ���� ������ ����� �������������� ��� �������� �������� �������� � �������� �������.
-
-    while (currentDividend > other == 2 || currentDividend > other == 0) // ���� currentDividend ������ ��� ����� other
-    {
-        currentDividend = currentDividend - other; // �������� other �� currentDividend � ����������� result �� 1
-        result = result + Natural("1");
-    }
-
-    return result;
-}
-
-Natural Natural::operator%(const Natural &other)
-{
-    if (other.isZero())
-    {
-        throw std::invalid_argument("Division by zero"); // ����������� ����������, ��� ��� ������� �� ���� �� ����������
-    }
-    if (*this > other == 1)
-    {
-        return *this; // ���������� �������� �����
-    }
-    Natural currentDividend = *this; // ��� �������� �������� �������� � �������� �������.
-
-    while (currentDividend > other == 2 || currentDividend > other == 0) // �� ������ ���� ���������� �������� �� �������� ��������.
-    {
-        currentDividend = currentDividend - other;
-    }
-
-    return currentDividend; // currentDividend, ������� ������ �������� ������� �� ������� ��������� ����� �� other
+    this->n = digit.size();
 }
 
 int Natural::operator>(const Natural &other)
@@ -172,29 +49,6 @@ int Natural::operator>(const Natural &other)
     }
 }
 
-Natural Natural::gcd(const Natural &other)
-{
-    Natural a = *this;
-    Natural b = other;
-    while (!b.isZero())
-    {
-        Natural temp_b = b;
-        b = a % b;
-        a = temp_b; // ��������� b �� ������� �� ������� a �� b � ��������� a �� �������� temp_b
-    }
-
-    return a; // a, ������� ������ �������� ��� ��������� ����� � other
-}
-
-Natural Natural::lcm(const Natural &other)
-{
-    Natural gcd_result = this->gcd(other); // ������� �������� ������ � ��������, � ����� ����� ���������� ������������ �� gcd_result
-
-    Natural lcm_result = (*this * other) / gcd_result;
-
-    return lcm_result; // lcm_result, ������� ������ �������� ��� ��������� ����� � other.
-}
-
 int Natural::isZero() const
 {
     if (this->digit.empty())
@@ -209,6 +63,197 @@ int Natural::isZero() const
     {
         return 0;
     }
+}
+
+Natural Natural::add1()
+{
+    int last = this->n;
+    while (this->digit[last] == 9)
+    {
+        last--;
+    }
+    if (last >= 0)
+    {
+        this->digit[last] += 1;
+    }
+    else
+    {
+        std::vector<int> newDigit = {1};
+        newDigit.insert(newDigit.end(), this->digit.begin(), this->digit.end());
+        this->digit = newDigit;
+    }
+}
+
+Natural Natural::operator+(const Natural &other)
+{
+    Natural result;
+    int carry = 0;
+
+    for (int i = 0; i < std::max(n, other.n) || carry; ++i)
+    {
+        if (i == result.n)
+
+            result.n++;
+        int sum = carry + (i < n ? digit[i] : 0) + (i < other.n ? other.digit[i] : 0);
+        result.digit.push_back(sum % 10);
+        carry = sum / 10;
+    }
+
+    result.n = result.digit.size();
+    return result;
+}
+
+Natural Natural::operator-(const Natural &other)
+{
+    if ((*this > other == 1) || (*this > other == 0))
+    {
+        return Natural("0");
+    }
+
+    Natural result("");
+    int borrow = 0;
+
+    for (int i = 0; i < std::max(n, other.n) || borrow; ++i)
+    {
+        int sub = (i < n ? digit[i] : 0) - borrow - (i < other.n ? other.digit[i] : 0);
+
+        if (sub < 0)
+        {
+            sub += 10;
+            borrow = 1;
+        }
+        else
+        {
+            borrow = 0;
+        }
+
+        if (i == result.n)
+        {
+
+            result.n++;
+        }
+
+        result.digit.push_back(sub);
+    }
+
+    while (result.n > 1 && result.digit.back() == 0)
+    {
+        result.digit.pop_back();
+        result.n--;
+    }
+
+    return result;
+}
+
+Natural Natural::MUL_ND_N(int dig) const
+{
+    std::vector<int> newDigit = {};
+    int carry = 0;
+    for (int i = 0; i < this->n; i++)
+    {
+        int current = this->digit[i] * dig;
+        newDigit.push_back(current % 10 + carry);
+        carry = current / 10;
+    }
+    if (carry != 0)
+    {
+        newDigit.push_back(carry);
+    }
+    Natural result;
+    result.digit = newDigit;
+    result.n = newDigit.size();
+    return result;
+}
+
+Natural Natural::MUL_Nk_N(const Natural &k)
+{
+    std::vector<int> newDigit = {};
+    for (int i = 0; i < k.n; i++)
+    {
+        for (int j = 0; j < k.digit[i]*pow(10, i); j++)
+        {
+                newDigit.push_back(0);   
+        }
+    }
+    Natural result;
+    result.digit = this->digit;
+    result.digit.insert(result.digit.begin(), newDigit.begin(), newDigit.end());
+    result.n = result.digit.size();
+    return result;
+}
+
+Natural Natural::operator*(const Natural &other)
+{
+    Natural result("0");
+    for (int i = 0; i < this->n; i++)
+    {
+        Natural current = other.MUL_ND_N(this->digit[i]);
+        current = current.MUL_Nk_N(Natural(std::to_string(i)));
+        result = result + current;
+    }
+    return result;
+}
+
+Natural Natural::operator/(const Natural &other)
+{
+    if (other.isZero())
+    {
+        throw std::invalid_argument("Division by zero");
+    }
+    Natural result("0");
+
+    Natural currentDividend = *this;
+
+    while (currentDividend > other == 2 || currentDividend > other == 0)
+    {
+        currentDividend = currentDividend - other;
+        result = result + Natural("1");
+    }
+
+    return result;
+}
+
+Natural Natural::operator%(const Natural &other)
+{
+    if (other.isZero())
+    {
+        throw std::invalid_argument("Division by zero");
+    }
+    if (*this > other == 1)
+    {
+        return *this;
+    }
+    Natural currentDividend = *this;
+
+    while (currentDividend > other == 2 || currentDividend > other == 0)
+    {
+        currentDividend = currentDividend - other;
+    }
+
+    return currentDividend;
+}
+
+Natural Natural::gcd(const Natural &other)
+{
+    Natural a = *this;
+    Natural b = other;
+    while (!b.isZero())
+    {
+        Natural temp_b = b;
+        b = a % b;
+        a = temp_b;
+    }
+
+    return a;
+}
+
+Natural Natural::lcm(const Natural &other)
+{
+    Natural gcd_result = this->gcd(other);
+
+    Natural lcm_result = (*this * other) / gcd_result;
+
+    return lcm_result;
 }
 
 int Natural::isOne()
@@ -263,12 +308,6 @@ std::string Natural::str_() const
         ans.append(std::to_string(digit[i]));
     }
     return ans;
-}
-
-Natural Natural::add1()
-{
-    Natural num("1");
-    return *this + num;
 }
 
 std::string Natural::getDigit()
