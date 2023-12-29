@@ -233,7 +233,7 @@ Natural Natural::operator/(const Natural &other)
 {
     if (*this > other == 1)
     {
-        return Natural("0");
+        throw std::invalid_argument("3second operand > first");
     }
     if (other.isZero())
     {
