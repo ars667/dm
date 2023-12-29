@@ -65,9 +65,9 @@ int Natural::isZero() const
     }
 }
 
-Natural Natural::add1()
+void Natural::add1()
 {
-    int last = this->n;
+    int last = this->n - 1;
     while (this->digit[last] == 9)
     {
         last--;
@@ -105,7 +105,12 @@ Natural Natural::operator+(const Natural &other)
 
 Natural Natural::operator-(const Natural &other)
 {
-    if ((*this > other == 1) || (*this > other == 0))
+    if ((*this > other == 1))
+    {
+        throw std::invalid_argument("second operand > first");
+    }
+
+    if (*this > other == 0)
     {
         return Natural("0");
     }
@@ -170,9 +175,9 @@ Natural Natural::MUL_Nk_N(const Natural &k)
     std::vector<int> newDigit = {};
     for (int i = 0; i < k.n; i++)
     {
-        for (int j = 0; j < k.digit[i]*pow(10, i); j++)
+        for (int j = 0; j < k.digit[i] * pow(10, i); j++)
         {
-                newDigit.push_back(0);   
+            newDigit.push_back(0);
         }
     }
     Natural result;
@@ -194,22 +199,56 @@ Natural Natural::operator*(const Natural &other)
     return result;
 }
 
+Natural Natural::SUB_NDN_N(const Natural &other, int dig)
+{
+    Natural subtrahend = other.MUL_ND_N(dig);
+    return *this - subtrahend;
+}
+
+Natural Natural::DIV_NN_Dk(const Natural &other)
+{
+    if (*this > other == 1)
+    {
+        throw std::invalid_argument("second operand > first");
+    }
+    Natural large = *this;
+    Natural small = other;
+    int k = 1;
+    while (large > small.MUL_Nk_N(Natural(std::to_string(k))) == 2)
+    {
+        k++;
+    }
+    k--;
+    Natural divisor = small.MUL_Nk_N(Natural(std::to_string(k)));
+    Natural first("0");
+    while (large > divisor == 2 || large > divisor == 0)
+    {
+        large = large - divisor;
+        first.add1();
+    }
+    return first.MUL_Nk_N(Natural(std::to_string(k)));
+}
+
 Natural Natural::operator/(const Natural &other)
 {
+    if (*this > other == 1)
+    {
+        throw std::invalid_argument("second operand > first");
+    }
     if (other.isZero())
     {
         throw std::invalid_argument("Division by zero");
     }
     Natural result("0");
-
-    Natural currentDividend = *this;
-
-    while (currentDividend > other == 2 || currentDividend > other == 0)
+    Natural temp("0");
+    Natural large = *this;
+    Natural small = other;
+    while (!(large > small == 1))
     {
-        currentDividend = currentDividend - other;
-        result = result + Natural("1");
+        temp = large.DIV_NN_Dk(small);
+        large = large - small * temp;
+        result = result + temp;
     }
-
     return result;
 }
 
