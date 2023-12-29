@@ -107,7 +107,7 @@ Natural Natural::operator-(const Natural &other)
 {
     if ((*this > other == 1))
     {
-        throw std::invalid_argument("second operand > first");
+        throw std::invalid_argument("1second operand > first");
     }
 
     if (*this > other == 0)
@@ -209,7 +209,7 @@ Natural Natural::DIV_NN_Dk(const Natural &other)
 {
     if (*this > other == 1)
     {
-        throw std::invalid_argument("second operand > first");
+        throw std::invalid_argument("2second operand > first");
     }
     Natural large = *this;
     Natural small = other;
@@ -233,7 +233,7 @@ Natural Natural::operator/(const Natural &other)
 {
     if (*this > other == 1)
     {
-        throw std::invalid_argument("second operand > first");
+        return Natural("0");
     }
     if (other.isZero())
     {
