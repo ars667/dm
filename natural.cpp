@@ -202,6 +202,10 @@ Natural Natural::operator*(const Natural &other)
 Natural Natural::SUB_NDN_N(const Natural &other, int dig)
 {
     Natural subtrahend = other.MUL_ND_N(dig);
+    if (*this > subtrahend == 1)
+    {
+        throw std::invalid_argument("SUB_NDN_Nsecond operand > first");
+    }
     return *this - subtrahend;
 }
 
@@ -231,6 +235,14 @@ Natural Natural::DIV_NN_Dk(const Natural &other)
 
 Natural Natural::operator/(const Natural &other)
 {
+    if (other.isOne())
+    {
+        return *this;
+    }
+    if (this->isZero())
+    {
+        return Natural("0");
+    }
     if (*this > other == 1)
     {
         throw std::invalid_argument("3second operand > first");
@@ -262,14 +274,10 @@ Natural Natural::operator%(const Natural &other)
     {
         return *this;
     }
-    Natural currentDividend = *this;
 
-    while (currentDividend > other == 2 || currentDividend > other == 0)
-    {
-        currentDividend = currentDividend - other;
-    }
-
-    return currentDividend;
+    Natural div = *this / other;
+    Natural res = div * other;
+    return *this - res;
 }
 
 Natural Natural::gcd(const Natural &other)
@@ -295,7 +303,7 @@ Natural Natural::lcm(const Natural &other)
     return lcm_result;
 }
 
-int Natural::isOne()
+int Natural::isOne() const
 {
     if ((this->n) == 1 && (this->digit[0]) == 1)
     {

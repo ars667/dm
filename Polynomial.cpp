@@ -6,14 +6,14 @@
 //#define int long long
 using namespace std;
 
-//проверка на тождественный ноль
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 bool Polynomial::poly_empty() {
     Polynomial poly = (*this);
     vector<std::string> zero{ "0", "+0", "-0" };
     return poly.coef.size() == 1 && std::count(zero.begin(), zero.end(), poly.coef[0].get_nominator().getValue());//
 }
 
-//конструктор формирования многочлена
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial::Polynomial(vector<Rational> coefficients) {//
     if (coefficients.size() < 1) {
         std::cout << "Not a polynom!";
@@ -24,7 +24,7 @@ Polynomial::Polynomial(vector<Rational> coefficients) {//
     }
 }
 
-//удаляю незначащие коэффициенты
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 void Polynomial::norm_polynom() {
     vector<Rational> coeff_this = (*this).coef;//
     reverse(coeff_this.begin(), coeff_this.end());
@@ -35,7 +35,7 @@ void Polynomial::norm_polynom() {
     (*this).coef = coeff_this;
 }
 
-//умножение многочленов
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::MUL_PP_P(Polynomial poly1) {
     Polynomial poly2 = *this;
     vector<Rational> coeff = poly1.coef;//
@@ -176,7 +176,7 @@ Polynomial Polynomial::add_polynom(Polynomial poly1, Polynomial poly2, bool minu
     return poly_ans;
 }
 
-//ОК
+//пїЅпїЅ
 Polynomial Polynomial::MOD_PP_P(Polynomial poly_n) {
     Polynomial poly_m = (*this);
     Polynomial poly_r = poly_m - poly_n.MUL_PP_P(poly_m.DIV_PP_P(poly_n));
@@ -185,17 +185,17 @@ Polynomial Polynomial::MOD_PP_P(Polynomial poly_n) {
 }
 //  P = N*Q + R
 // R = P - N*Q
-//ОК
+//пїЅпїЅ
 //Polynomial Polynomial::nod_polynom(Pol)
-// Сложение двух многочленов
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::operator+(const Polynomial& other) {
     Polynomial poly = Polynomial::add_polynom(*this, other, false);
     poly.norm_polynom();
     return poly;
 }
 
-//ОК
-// Вычитание двух многочленов
+//пїЅпїЅ
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::operator-(const Polynomial& other) {
     Polynomial poly = add_polynom(*this, other, true);
     poly.norm_polynom();
@@ -203,7 +203,7 @@ Polynomial Polynomial::operator-(const Polynomial& other) {
 }
 
 Polynomial Polynomial::operator*(Rational a) const {
-    Polynomial result(*this);  // Создаем копию многочлена
+    Polynomial result(*this);  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     for (Rational& coefficient : result.coef) {
         coefficient = coefficient.MUL_QQ_Q(a);
     }
@@ -211,7 +211,7 @@ Polynomial Polynomial::operator*(Rational a) const {
     return result;
 }
 
-// Умножение многочлена на x^k Особенности: возвращает новый полином, не меняя текущий
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ x^k пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Polynomial Polynomial::MUL_Pxk_P(int k) const {
     Polynomial result = *this;
     for (int i = 0; i < k; ++i) {
@@ -220,13 +220,13 @@ Polynomial Polynomial::MUL_Pxk_P(int k) const {
     return result;
 }
 
-// Нахождение старшего коэффициента многочлена
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 Rational Polynomial::LED_P_Q() {
     return coef[0];
 }
 
 
-// Нахождение степени многочлена
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 int Polynomial::DEG_P_N() const {
     int k = 0;
     for (Rational num : coef) {
@@ -268,8 +268,8 @@ void Polynomial::nod_nok() {
     Rational result = calculateLCMandGCD();
     //std::pair<int, int> p = make_pair(result.second, result.first);
 
-    //std::cout << "НОД числителей: " << result.first << std::endl;
-    //std::cout << "НОК знаменателей: " << result.second << std::endl;
+    //std::cout << "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << result.first << std::endl;
+    //std::cout << "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << result.second << std::endl;
     //std::cout << result.first << "/" << result.second << "*(";
     std::cout << "NODE of numerators: ";  result.get_nominator().print();
     std::cout << "\nNOK of denominators: "; result.get_denominator().print();

@@ -27,7 +27,7 @@ public:
     Natural operator%(const Natural &digit);
     Natural gcd(const Natural &other);
     Natural lcm(const Natural &other);
-    int isOne();
+    int isOne() const; 
     void print() const;
     void check();
     std::string str_() const;
