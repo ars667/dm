@@ -211,6 +211,10 @@ Natural Natural::SUB_NDN_N(const Natural &other, int dig)
 
 Natural Natural::DIV_NN_Dk(const Natural &other)
 {
+    if (other.isZero())
+    {
+        throw std::invalid_argument("Division by zero");
+    }
     if (*this > other == 1)
     {
         throw std::invalid_argument("2second operand > first");
@@ -218,7 +222,7 @@ Natural Natural::DIV_NN_Dk(const Natural &other)
     Natural large = *this;
     Natural small = other;
     int k = 1;
-    while (large > small.MUL_Nk_N(Natural(std::to_string(k))) == 2)
+    while (large > small.MUL_Nk_N(Natural(std::to_string(k))) == 2 || large > small.MUL_Nk_N(Natural(std::to_string(k))) == 0)
     {
         k++;
     }
