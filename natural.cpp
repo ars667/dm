@@ -286,6 +286,10 @@ Natural Natural::operator%(const Natural &other)
 
 Natural Natural::gcd(const Natural &other)
 {
+    if (this->isZero() || other.isZero())
+    {
+        return Natural("1");
+    }
     Natural a = *this;
     Natural b = other;
     while (!b.isZero())
@@ -300,6 +304,10 @@ Natural Natural::gcd(const Natural &other)
 
 Natural Natural::lcm(const Natural &other)
 {
+    if (this->isZero() || other.isZero())
+    {
+        return Natural("0");
+    }
     Natural gcd_result = this->gcd(other);
 
     Natural lcm_result = (*this * other) / gcd_result;
