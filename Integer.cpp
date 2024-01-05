@@ -79,13 +79,13 @@ std::string Integer::getValue() const
 }
 
 
-// Абсолютная величина числа, результат - натуральное
-//делала Бараева Е.Н.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
 Natural Integer::ABS_Z_N() {
 	return value;
 }
 
-unsigned int Integer::POZ_Z_D() // Определение положительности числа (2 - положительное, 0 — равное нулю, 1 - отрицательное)
+unsigned int Integer::POZ_Z_D() // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (2 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, 0 пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, 1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
 {
 	Natural val = value;
 	if ((val).isZero())
@@ -96,8 +96,8 @@ unsigned int Integer::POZ_Z_D() // Определение положительности числа (2 - положи
 		return 1;
 }
 
-//// делала Анищенко А.И.
-Integer Integer::MUL_ZM_Z() { // умножение целого на -1
+//// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
+Integer Integer::MUL_ZM_Z() { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ -1
 	Integer ans;
 	ans.value = value;
 	if (sign == true)
@@ -107,23 +107,23 @@ Integer Integer::MUL_ZM_Z() { // умножение целого на -1
 	return ans;
 }
 
-//// Преобразование натурального в целое
-////делала Бараева Е.Н.
+//// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
+////пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
 Integer Integer::TRANS_N_Z(const Natural& natural) {
 	return Integer(false, natural);
 }
 
-// Преобразование целого неотрицательного в натуральное
-//делала Бараева Е.Н.
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
 Natural Integer::TRANS_Z_N(const Integer& integer) {
 	if (sign == true)
-		throw "Negative number"; // проверка на неотрицательность, выбрасывание исключения
-	// return ABS_Z_N(integer); можно использовать ABS_Z_N, т.к. код далее повторяет эту функцию
+		throw "Negative number"; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	// return ABS_Z_N(integer); пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ABS_Z_N, пїЅ.пїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	return Natural(integer.value);
 }
 
-Integer Integer::ADD_ZZ_Z(const Integer& intB) //Сложение целых чисел, ABS_Z_N - вернуть нат, COM_NN_D - сравнить 2 нат, ADD_NN_N SUB_NN_N MUL_ZM_Z - смена знака
-{	//POZ_Z_D - опр положит(мешает для случаев с 0, так что не использую.)
+Integer Integer::ADD_ZZ_Z(const Integer& intB) //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, ABS_Z_N - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, COM_NN_D - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2 пїЅпїЅпїЅ, ADD_NN_N SUB_NN_N MUL_ZM_Z - пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+{	//POZ_Z_D - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ 0, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.)
 	Natural sum;
 	if (sign == false && intB.sign == false)
 	{
@@ -140,7 +140,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //Сложение целых чисел, ABS_Z_N -
 		int bigger = value > intB.value;
 		if (bigger == 0)
 			return Integer(false, (value - intB.value));
-		else if (bigger == 2)//A > B по мод
+		else if (bigger == 2)//A > B пїЅпїЅ пїЅпїЅпїЅ
 		{
 			sum = (value - intB.value);
 			if (sign == true)
@@ -150,7 +150,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //Сложение целых чисел, ABS_Z_N -
 			else
 				return Integer(false, sum);
 		}
-		else if (bigger == 1)//A < B по мод
+		else if (bigger == 1)//A < B пїЅпїЅ пїЅпїЅпїЅ
 		{
 			Natural bVal = intB.value;
 			sum = (bVal - value);
@@ -167,7 +167,7 @@ Integer Integer::ADD_ZZ_Z(const Integer& intB) //Сложение целых чисел, ABS_Z_N -
 		return Integer();
 }
 
-Integer Integer::SUB_ZZ_Z(const Integer& intB) //Вычитание целых чисел, POZ_Z_D ABS_Z_N COM_NN_D ADD_NN_N SUB_NN_N MUL_ZM_Z
+Integer Integer::SUB_ZZ_Z(const Integer& intB) //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, POZ_Z_D ABS_Z_N COM_NN_D ADD_NN_N SUB_NN_N MUL_ZM_Z
 {
 	Integer tempB = intB;
 	Integer intRevB = tempB.MUL_ZM_Z();
@@ -175,7 +175,7 @@ Integer Integer::SUB_ZZ_Z(const Integer& intB) //Вычитание целых чисел, POZ_Z_D 
 	return result;
 }
 
-Integer Integer::MUL_ZZ_Z(const Integer& intB) // Умножение целых чисел, POZ_Z_D ABS_Z_N MUL_NN_N MUL_ZM_Z
+Integer Integer::MUL_ZZ_Z(const Integer& intB) // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, POZ_Z_D ABS_Z_N MUL_NN_N MUL_ZM_Z
 {
 	bool mulSign = false;
 	Integer tempB = intB;
@@ -189,17 +189,21 @@ Integer Integer::MUL_ZZ_Z(const Integer& intB) // Умножение целых чисел, POZ_Z_D
 	return Integer(mulSign, mult);
 }
 
-// функции для работы с целыми числами
-//делала Анищенко А.И.
-Integer Integer::DIV_ZZ_Z(const Integer& b) { // деление целого на целое
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
+Integer Integer::DIV_ZZ_Z(const Integer& b) { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	Integer result;
 	result.sign = MUL_ZZ_Z(b).sign;
 	result.value = value / b.value;
 	return result;
 }
 
-//делала Анищенко А.И.
-Integer Integer::MOD_ZZ_Z(const Integer& b) { // остаток от деления целого на целое
+//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ.пїЅ.
+Integer Integer::MOD_ZZ_Z(const Integer& b) { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	if (value > b.value == 1)
+	{
+		return *this;
+	}
 	Integer div = DIV_ZZ_Z(b);
 	return Integer(div.sign, value % b.value);
 }
